@@ -231,194 +231,76 @@
 
   var HOT_ITEMS = [
     {
-      id: "reasoning-wait",
+      id: "v4-preview",
       category: "模型",
       catClass: "model",
-      title: "推理模型之后，产品经理开始重新定义「等待」",
-      short: "当模型学会思考，界面上的转圈就不再只是加载。等待被拆成了信任、节奏与可解释性。",
-      body: "推理模型把「回答」变成了一段过程。过程越长，产品越需要回答一个原本不存在的问题：这段等待里，用户应该看到什么？\n\n有人把思维链折成进度节点，有人只给一个稳定的呼吸动画，也有人干脆把中间步骤变成可编辑的草稿。讨论的共识正在收敛：等待本身不是问题，失去控制感才是。",
-      heat: "9.8k",
-      delta: "+18%",
-      published: "10/27 21:10",
-      read: "5 MIN",
-      prompts: [
-        "你愿意为更准的答案多等几秒？这个上限会随场景变化吗？",
-        "推理过程应该被展示、被折叠，还是完全隐藏？",
-        "如果等待无法避免，什么样的界面反馈最让你安心？"
-      ],
-      tags: ["推理模型", "等待体验", "产品设计"],
-      source: { label: "DeepSeek 官网", url: "https://www.deepseek.com" }
+      title: "DeepSeek-V4 预览版：迈入百万上下文普惠时代",
+      short: "百万字超长上下文，Agent、世界知识与推理性能全面升级，并同步开源。",
+      date: "2026/04/24",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260424/" }
     },
     {
-      id: "open-fail-log",
-      category: "开源",
-      catClass: "oss",
-      title: "开源复刻的下半场：把失败也写进日志",
-      short: "权重、配方与工程细节之外，社区开始认真记录「哪条路走不通」，以及为什么。",
-      body: "复刻一个模型，不只是把参数量对上。数据配比、训练稳定性、推理加速、评测方式，任何一个环节都可能变成瓶颈。最近的复刻笔记里，「失败」出现的频率明显变高。\n\n失败日志的价值在于边界：它告诉后来者哪些技巧无法迁移，哪些坑在特定规模才会出现。把过程写下来，本身就是开源最珍贵的部分。",
-      heat: "8.6k",
-      delta: "+12%",
-      published: "10/27 20:42",
-      read: "6 MIN",
-      prompts: [
-        "如果只能公开一样东西，你会选权重、数据，还是训练日志？",
-        "复刻失败时，怎样判断是方法问题还是工程问题？",
-        "对小团队来说，复现大模型最现实的切入点在哪里？"
-      ],
-      tags: ["开源", "复现", "失败日志"],
-      source: { label: "DeepSeek GitHub", url: "https://github.com/deepseek-ai" }
+      id: "v4-1-flash",
+      category: "模型",
+      catClass: "model",
+      title: "DeepSeek V4.1 Flash：更强、更快、更普惠",
+      short: "更小尺寸的 V4.1 Flash，原生多模态视觉理解，速度更快、成本更低。",
+      date: "2026/09/10",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260910/" }
     },
     {
-      id: "long-context-daily",
+      id: "v4-1-flash-1017",
       category: "产品",
       catClass: "product",
-      title: "长上下文进入日常之后，谁真的用满了 1M Token？",
-      short: "能装下不等于用得好。检索策略、注意力分配和成本结构，正在重写「上下文」的产品含义。",
-      body: "上下文窗口越做越大，但真实产品里，塞满窗口通常不是最优解。更常见的选择是分层：把稳定信息放进缓存，把变化信息做检索，把关键指令放在最后。\n\n社区里的实践帖普遍提到同一件事：长上下文最贵的不是 token，而是注意力被无关内容稀释之后，模型开始抓错重点。",
-      heat: "7.9k",
-      delta: "+23%",
-      published: "10/27 19:28",
-      read: "4 MIN",
-      prompts: [
-        "你会把哪些内容放进长期上下文，哪些坚持按需检索？",
-        "上下文变长之后，评测方式需要怎样改变？",
-        "如果成本不是问题，你还会做检索吗？"
-      ],
-      tags: ["长上下文", "RAG", "成本"],
-      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com" }
+      title: "DeepSeek V4.1 Flash 新版本：许愿式编程一键成真",
+      short: "V4.1-Flash-1017 更新，面向真实编码与产品工作流的又一次能力升级。",
+      date: "2026/10/17",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news261017/" }
     },
     {
-      id: "gamejam-ai",
-      category: "社区",
-      catClass: "community",
-      title: "一场 48 小时 Game Jam，AI 把原型时间砍半之后",
-      short: "代码、美术和文案都能被搭把手，创作者的时间被重新分配到了试玩与删减上。",
-      body: "Game Jam 最迷人的地方，是在极限时间里做一个「能玩」的东西。AI 加入后，原型变快了，但判断什么好玩仍然只能靠人。\n\n社区复盘里出现了一个共同变化：写代码的时间少了，试玩、删减和打磨的时间多了。工具改变了流程，没有替代品味。",
-      heat: "7.4k",
-      delta: "+15%",
-      published: "10/27 18:50",
-      read: "5 MIN",
-      prompts: [
-        "AI 最应该接手 Game Jam 里的哪个环节？",
-        "当原型成本变低，游戏数量变多，好点子会更容易被发现吗？",
-        "你会接受一个完全由 AI 生成美术的小游戏吗？"
-      ],
-      tags: ["Game Jam", "AI 协作", "游戏创作"],
-      source: { label: "DeepSeek 官网", url: "https://www.deepseek.com" }
-    },
-    {
-      id: "small-model-return",
+      id: "v4-pro",
       category: "模型",
       catClass: "model",
-      title: "小模型回潮：端侧推理的第二次机会",
-      short: "当量化、蒸馏与专用芯片同时成熟，小模型不再只是「便宜替代品」。",
-      body: "云端模型继续变大，端侧模型却在变小。两个方向并不矛盾：一个追求能力上限，一个追求随时可用、数据不出设备。\n\n社区里最务实的讨论不再是「小模型能不能替代大模型」，而是「哪些任务根本不需要请求云端」。输入法、相册整理、离线摘要，这些场景正在给出答案。",
-      heat: "6.8k",
-      delta: "+9%",
-      published: "10/27 17:36",
-      read: "4 MIN",
-      prompts: [
-        "你的设备上，哪一个 AI 功能最值得本地化？",
-        "端侧模型的隐私优势，能抵消能力差距吗？",
-        "小模型的产品形态，会和大模型一样吗？"
-      ],
-      tags: ["小模型", "端侧", "量化"],
-      source: { label: "DeepSeek 官网", url: "https://www.deepseek.com" }
+      title: "DeepSeek-V4-Pro 正式版上线",
+      short: "V4 系列正式版发布，Agentic Coding 与复杂任务能力进一步增强。",
+      date: "2026/08/13",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260813/" }
     },
     {
-      id: "kv-cache-path",
+      id: "v4-flash-vision",
+      category: "模型",
+      catClass: "model",
+      title: "DeepSeek-V4-Flash-Vision-Exp 上线",
+      short: "面向视觉理解场景的 Flash 实验版本，原生多模态能力继续扩展。",
+      date: "2026/08/21",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260821/" }
+    },
+    {
+      id: "v3-2",
       category: "开源",
       catClass: "oss",
-      title: "从手搓推理引擎到读懂 KV Cache：一条被重排的学习路线",
-      short: "先跑通、再测量、最后解释。社区正在把「学 LLM」从纸面公式拉回可运行的代码。",
-      body: "「从零手搓」的意义不在于重新发明轮子，而在于把黑盒拆开。写一个能跑起来的小推理引擎，会逼你真正理解注意力怎么占显存、采样参数如何改变输出、连续批处理为什么难。\n\n社区里的学习路线很多，但最靠谱的进度条永远是：能跑、能测、能解释。",
-      heat: "5.7k",
-      delta: "+14%",
-      published: "10/27 16:20",
-      read: "7 MIN",
-      prompts: [
-        "学推理引擎，应该先补数学还是先跑通代码？",
-        "手搓一个 mini 引擎，最少需要实现哪些功能？",
-        "有哪些性能优化，看论文能懂、自己写就写不出来？"
-      ],
-      tags: ["推理引擎", "KV Cache", "学习路线"],
-      source: { label: "DeepSeek GitHub", url: "https://github.com/deepseek-ai" }
+      title: "DeepSeek-V3.2 正式版：强化 Agent 能力，融入思考推理",
+      short: "在 V3.2-Exp 基础上继续打磨，强化 Agent 场景与思考推理能力。",
+      date: "2025/12/01",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news251201/" }
     },
     {
-      id: "agent-last-mile",
-      category: "产品",
-      catClass: "product",
-      title: "Agent 产品的最后一公里：权限、回滚与审计",
-      short: "会调用工具只是开始。真正让 Agent 进入生产环境的，是一套可撤销的信任机制。",
-      body: "让模型点下「发送」或「删除」之前，产品必须回答三个问题：它有哪些权限，做错了怎么撤回，谁来看记录。\n\n社区里越来越多的 Agent 复盘不再讨论提示词，而是讨论边界。人类确认节点放在哪里、失败之后如何恢复、操作日志怎样让普通人看懂，这些细节决定了 Agent 是玩具还是同事。",
-      heat: "5.3k",
-      delta: "+21%",
-      published: "10/27 15:08",
-      read: "6 MIN",
-      prompts: [
-        "哪些操作必须由人类确认，哪些可以交给 Agent？",
-        "一个不可回滚的 Agent 功能，你会允许它上线吗？",
-        "审计日志应该给谁看，看到什么粒度？"
-      ],
-      tags: ["Agent", "权限", "可回滚"],
-      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com" }
+      id: "r1-release",
+      category: "开源",
+      catClass: "oss",
+      title: "DeepSeek-R1 发布：用强化学习激发推理能力",
+      short: "DeepSeek 第一代推理模型正式开源，展示强化学习驱动推理的完整路径。",
+      date: "2025/01/20",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news250120/" }
     },
     {
-      id: "whale-meme",
-      category: "社区",
-      catClass: "community",
-      title: "把鲸鱼做成表情包：社区二创的野生美学",
-      short: "同一个标志，在不同人的屏幕里变成贴纸、角色、世界观和游戏。",
-      body: "社区创作最有趣的地方，是它从不解释自己为什么可爱。有人把鲸鱼画成像素风，有人给它编了深海冒险的设定，还有人把它做成了游戏角色。\n\n二次创作让一个技术符号拥有了温度，也让更多人愿意从「玩」开始认识它。边界感仍然重要，但灵感往往就长在边界附近。",
-      heat: "4.8k",
-      delta: "+26%",
-      published: "10/27 13:40",
-      read: "3 MIN",
-      prompts: [
-        "如果鲸鱼是游戏主角，它的技能应该是什么？",
-        "你心中最适合 DeepSeek 的美术风格是什么？",
-        "社区二创需要怎样的边界感，才能既自由又尊重原创？"
-      ],
-      tags: ["二创", "像素画", "社区文化"],
-      source: { label: "DeepSeek 官网", url: "https://www.deepseek.com" }
-    },
-    {
-      id: "model-feel",
-      category: "模型",
-      catClass: "model",
-      title: "评测集之外，开发者如何判断模型「手感」",
-      short: "跑分回答能力上限，真实任务回答使用体验。两者之间隔着大量无法量化的细节。",
-      body: "选模型像选工具：日常问答、结构化抽取、代码补全、复杂推理，关注点完全不同。速度、成本、稳定性、可控性，每个维度都会影响最终体验。\n\n社区里最好用的清单，永远是自己踩坑后写的那一份。与其问「哪个更好」，不如把真实任务列出来，让模型在固定评测集上跑一遍。",
-      heat: "4.1k",
-      delta: "+7%",
-      published: "10/27 12:15",
-      read: "5 MIN",
-      prompts: [
-        "你会用哪些维度给模型做一张「手感评分表」？",
-        "什么任务看起来适合推理模型，实际却更适合普通对话模型？",
-        "模型切换时，怎样保证线上产品体验不突然变差？"
-      ],
-      tags: ["评测", "模型选型", "手感"],
-      source: { label: "DeepSeek 官网", url: "https://www.deepseek.com" }
-    },
-    {
-      id: "prompt-swap",
-      category: "社区",
-      catClass: "community",
-      title: "深夜的 Prompt 交换局：那些不愿公开的工作流",
-      short: "最有价值的提示词往往不是一句咒语，而是一串被反复修正的协作习惯。",
-      body: "真正好用的 Prompt，通常长得不像 Prompt。它可能是一份检查清单，一段角色设定，或者一套让模型先提问再回答的流程。\n\n社区里开始流行交换「工作流」而不是「咒语」：先给约束、再给样例、最后要求自检。比起追求一句话的魔法，这些方法更慢，也更可复用。",
-      heat: "3.6k",
-      delta: "+11%",
-      published: "10/27 11:02",
-      read: "4 MIN",
-      prompts: [
-        "你愿意公开自己的 Prompt 吗？边界在哪里？",
-        "一套好用的工作流，最重要的组成部分是什么？",
-        "让模型先提问，真的能得到更好的答案吗？"
-      ],
-      tags: ["Prompt", "工作流", "协作"],
-      source: { label: "DeepSeek 官网", url: "https://www.deepseek.com" }
+      id: "v3-release",
+      category: "开源",
+      catClass: "oss",
+      title: "DeepSeek-V3 发布：更强的通用大模型",
+      short: "DeepSeek-V3 正式发布并开源，以更高效的训练和推理架构刷新性能表现。",
+      date: "2024/12/26",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news1226/" }
     }
   ];
 
@@ -569,6 +451,25 @@
 
     refreshBestDisplays();
     updateGameCounts();
+    setupCardTilt();
+  }
+
+  function setupCardTilt() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gamesGrid.querySelectorAll(".game-tile").forEach(function (card) {
+      card.addEventListener("pointermove", function (event) {
+        if (event.pointerType && event.pointerType !== "mouse") return;
+        var rect = card.getBoundingClientRect();
+        var x = (event.clientX - rect.left) / rect.width - 0.5;
+        var y = (event.clientY - rect.top) / rect.height - 0.5;
+        card.style.setProperty("--ry", (x * 5).toFixed(2) + "deg");
+        card.style.setProperty("--rx", (-y * 4).toFixed(2) + "deg");
+      });
+      card.addEventListener("pointerleave", function () {
+        card.style.removeProperty("--rx");
+        card.style.removeProperty("--ry");
+      });
+    });
   }
 
   function updateGameCounts() {
@@ -631,18 +532,6 @@
     return items.filter(function (item) { return item.category === hotFilter; });
   }
 
-  function signalBars(id) {
-    var seed = 0;
-    for (var i = 0; i < id.length; i += 1) seed += id.charCodeAt(i);
-    var bars = [];
-    for (var index = 0; index < 34; index += 1) {
-      var value = 9 + Math.abs(Math.sin(seed * 0.37 + index * 1.7)) * 43;
-      var delay = ((seed + index * 7) % 18) / 10;
-      bars.push('<i class="signal-bar" style="height:' + value.toFixed(1) + 'px;animation-delay:-' + delay + 's"></i>');
-    }
-    return bars.join("");
-  }
-
   function renderHot() {
     var items = itemsForFilter();
     var feature = items[0];
@@ -662,35 +551,38 @@
         "<p>换一个分类看看。</p>" +
         '<button type="button" class="sonar-empty__button" data-hot-reset>查看全部</button></div>';
       listBox.innerHTML = "";
-    } else {
-      featureBox.innerHTML =
-        '<article class="hot-feature__card">' +
-        '<div class="hot-feature__top">' +
-        '<span class="hot-feature__cat">' + escapeHtml(feature.category) + "</span>" +
-        '<span class="hot-feature__top-actions"><span class="feature-heat">' + escapeHtml(feature.heat) + "</span>" +
-        bookmarkMarkup(savedSignals.has(feature.id), feature.id, "save-button") +
-        "</span></div>" +
-        '<div class="hot-feature__body">' +
-        "<h3>" + escapeHtml(feature.title) + "</h3>" +
-        "<p>" + escapeHtml(feature.short) + "</p>" +
-        '<button type="button" class="hot-feature__action" data-hot-detail="' + feature.id +
-        '">阅读全文 <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-arrow"/></svg></button>' +
-        "</div></article>";
+      return;
+    }
 
-      if (!rest.length) {
-        listBox.innerHTML = '<li class="trend-empty">暂无更多内容</li>';
-      } else {
-        listBox.innerHTML = rest.map(function (item, index) {
-          return (
-            '<li class="trend-item">' +
-            '<button type="button" class="trend-button" data-hot-detail="' + item.id + '">' +
-            '<span class="trend-rank">' + String(index + 2) + "</span>" +
-            '<span class="trend-main"><span class="trend-title">' + escapeHtml(item.title) + "</span></span>" +
-            '<span class="trend-heat">' + escapeHtml(item.heat) + "</span>" +
-            "</button></li>"
-          );
-        }).join("");
-      }
+    featureBox.innerHTML =
+      '<a class="hot-feature__card article-link" href="' + escapeHtml(feature.source.url) +
+      '" target="_blank" rel="noopener noreferrer">' +
+      '<div class="hot-feature__top">' +
+      '<span class="hot-feature__cat">' + escapeHtml(feature.category) + "</span>" +
+      '<span class="article-date">' + escapeHtml(feature.date) + "</span>" +
+      "</div>" +
+      '<div class="hot-feature__body">' +
+      "<h3>" + escapeHtml(feature.title) + "</h3>" +
+      "<p>" + escapeHtml(feature.short) + "</p>" +
+      '<span class="hot-feature__action">阅读原文 <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg></span>' +
+      "</div>" +
+      '<div class="article-source">' + escapeHtml(feature.source.label) + "</div></a>";
+
+    if (!rest.length) {
+      listBox.innerHTML = '<li class="trend-empty">暂无更多文章</li>';
+    } else {
+      listBox.innerHTML = rest.map(function (item, index) {
+        return (
+          '<li class="trend-item">' +
+          '<a class="trend-button article-link" href="' + escapeHtml(item.source.url) +
+          '" target="_blank" rel="noopener noreferrer">' +
+          '<span class="trend-rank">' + String(index + 2) + "</span>" +
+          '<span class="trend-main"><span class="trend-title">' + escapeHtml(item.title) + "</span>" +
+          '<span class="trend-meta">' + escapeHtml(item.source.label) + " · " + escapeHtml(item.date) + "</span></span>" +
+          '<span class="trend-ext" aria-hidden="true">↗</span>' +
+          "</a></li>"
+        );
+      }).join("");
     }
   }
 
@@ -1003,14 +895,16 @@
 
     HOT_ITEMS.forEach(function (item, index) {
       commands.push({
-        id: "signal-" + item.id + "-" + index,
-        group: "热点",
+        id: "article-" + item.id + "-" + index,
+        group: "文章",
         title: item.title,
-        subtitle: item.category + " · " + item.published + " · " + item.read,
-        meta: item.heat,
-        icon: "✦",
-        search: item.title + " " + item.short + " " + item.tags.join(" ") + " 热点 新闻",
-        action: function () { openHotDetail(item.id); }
+        subtitle: item.source.label + " · " + item.date,
+        meta: "原文",
+        icon: "↗",
+        search: item.title + " " + item.short + " " + item.category + " 文章 新闻",
+        action: function () {
+          window.open(item.source.url, "_blank", "noopener,noreferrer");
+        }
       });
     });
 
@@ -1335,12 +1229,6 @@
       return;
     }
 
-    var detailTrigger = target.closest("[data-hot-detail]");
-    if (detailTrigger) {
-      openHotDetail(detailTrigger.getAttribute("data-hot-detail"));
-      return;
-    }
-
     var hotReset = target.closest("[data-hot-reset]");
     if (hotReset) {
       hotFilter = "all";
@@ -1585,11 +1473,4 @@
   syncShortcutLabels();
   setClock();
   window.setInterval(setClock, 15000);
-
-  if (window.location.hash.indexOf("#signal-") === 0) {
-    var initialSignal = decodeURIComponent(window.location.hash.replace("#signal-", ""));
-    if (HOT_ITEMS.some(function (item) { return item.id === initialSignal; })) {
-      window.setTimeout(function () { openHotDetail(initialSignal); }, 180);
-    }
-  }
 })();

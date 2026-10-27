@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#040a18">
-  <meta name="description" content="DeepSeek 深海游乐场：一个属于 DeepSeek 社区的迷你游戏实验室。跳一跳、合成大肥鱼、Token 消消乐，8 款深海小游戏与社区热点。">
+  <meta name="theme-color" content="#f7f8ff">
+  <meta name="description" content="DeepSeek 深海游乐场：8 款社区小游戏与 DeepSeek 官方最新动态。跳一跳、合成大肥鱼、Token 消消乐，即开即玩。">
   <link rel="canonical" href="https://xn--pssy23g5qs.fun/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="DeepSeek 深海游乐场">
-  <meta property="og:description" content="三款即开小游戏，一张社区热点声呐。把灵感，玩成一片海。">
+  <meta property="og:description" content="8 款小游戏与 DeepSeek 官方最新动态。把灵感，玩成一片海。">
   <meta property="og:url" content="https://xn--pssy23g5qs.fun/">
   <meta name="twitter:card" content="summary">
   <title>DeepSeek 深海游乐场 · 把灵感，玩成一片海</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234d6bfe'/%3E%3Cpath d='M12 36c2-11 11-19 24-19 9 0 16 4 20 11h8c2 0 3 2 1 4l-6 5c-1 1-2 2-4 2h-5c-4 5-11 8-18 8-12 0-21-4-20-11Z' fill='white'/%3E%3Ccircle cx='43' cy='30' r='2' fill='%234d6bfe'/%3E%3C/svg%3E">
   <script>document.documentElement.classList.add("js");</script>
   <link rel="stylesheet" href="assets/css/arcade.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
 </head>
 <body>
   <a class="skip-link" href="#games">跳到游戏大厅</a>
@@ -134,6 +135,14 @@
           </button>
         </div>
       </div>
+
+      <div class="hero-deco" aria-hidden="true">
+        <span class="hero-bubble hero-bubble--one"></span>
+        <span class="hero-bubble hero-bubble--two"></span>
+        <span class="hero-bubble hero-bubble--three"></span>
+        <span class="hero-bubble hero-bubble--four"></span>
+        <span class="hero-spark">✦</span>
+      </div>
     </section>
 
     <div class="dashboard-grid">
@@ -152,21 +161,19 @@
       <aside class="sonar-panel" id="sonar" aria-labelledby="sonar-title">
         <div class="sonar-top">
           <div class="sonar-title-group">
-            <h2 id="sonar-title">今日热点</h2>
+            <h2 id="sonar-title">最新动态</h2>
           </div>
-          <button type="button" class="sonar-refresh" data-refresh-hot>
-            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-reset"/></svg>
-            换一组
-          </button>
+          <a class="sonar-refresh" href="https://api-docs.deepseek.com/zh-cn/news/" target="_blank" rel="noopener noreferrer">
+            全部文章
+            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          </a>
         </div>
 
-        <div class="sonar-tabs" role="group" aria-label="热点分类">
+        <div class="sonar-tabs" role="group" aria-label="文章分类">
           <button type="button" class="is-active" data-hot-filter="all">全部</button>
           <button type="button" data-hot-filter="模型">模型</button>
           <button type="button" data-hot-filter="开源">开源</button>
           <button type="button" data-hot-filter="产品">产品</button>
-          <button type="button" data-hot-filter="社区">社区</button>
-          <button type="button" data-hot-filter="saved">关注</button>
         </div>
 
         <div class="sonar-layout" data-sonar-scroll>
@@ -185,7 +192,7 @@
         <span class="footer-mark"><svg viewBox="0 0 128 80" aria-hidden="true"><use href="#icon-whale"/></svg></span>
         <b>DeepSeek 深海游乐场</b>
       </div>
-      <p class="footer-disclaimer">非官方社区企划 · 热点为编辑演示 · 数据仅存本地</p>
+      <p class="footer-disclaimer">非官方社区企划 · 文章均链接 DeepSeek 官方来源 · 数据仅存本地</p>
       <button type="button" class="footer-submit" data-copy-brief>提交游戏</button>
       <span class="footer-year">© 2026</span>
     </div>
