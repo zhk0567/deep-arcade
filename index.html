@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#040a18">
+  <meta name="description" content="DeepSeek 深海游乐场：一个属于 DeepSeek 社区的迷你游戏实验室。跳一跳、合成大肥鱼、Token 消消乐，8 款深海小游戏与社区热点。">
+  <link rel="canonical" href="https://xn--pssy23g5qs.fun/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DeepSeek 深海游乐场">
+  <meta property="og:description" content="三款即开小游戏，一张社区热点声呐。把灵感，玩成一片海。">
+  <meta property="og:url" content="https://xn--pssy23g5qs.fun/">
+  <meta name="twitter:card" content="summary">
+  <title>DeepSeek 深海游乐场 · 把灵感，玩成一片海</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234d6bfe'/%3E%3Cpath d='M12 36c2-11 11-19 24-19 9 0 16 4 20 11h8c2 0 3 2 1 4l-6 5c-1 1-2 2-4 2h-5c-4 5-11 8-18 8-12 0-21-4-20-11Z' fill='white'/%3E%3Ccircle cx='43' cy='30' r='2' fill='%234d6bfe'/%3E%3C/svg%3E">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="assets/css/arcade.css">
+</head>
+<body>
+  <a class="skip-link" href="#games">跳到游戏大厅</a>
+
+  <svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-whale" viewBox="0 0 128 80">
+      <path fill="currentColor" d="M10.5 48.2C13 30.3 30.3 16 52.2 16c18.1 0 31.7 8.4 38.8 22.2h10.4c4.8 0 7 5.7 3.5 9l-8.2 7.6a7 7 0 0 1-4.8 1.9h-7.1C77.9 67 66.2 71.5 52 71.5c-21.1 0-37.7-8.5-41.5-23.3Z"/>
+      <path fill="#ffffff" opacity=".2" d="M18.7 52.2c5.8 8.7 17.8 13.7 32.8 13.7 12.3 0 23.8-4.2 30.2-11.1-4.8-2.5-10.7-3.9-17.3-3.9-16.7 0-30.8 3.5-45.7 1.3Z"/>
+      <path fill="currentColor" d="M99.5 38.5c6.2-8 12.6-11.9 20.2-12.2-1.7 7.4-5.4 13.3-10.6 17.7 7.6 2.3 12.9 7 15.6 14.2-9.2.6-17.4-2.4-24.7-8.6Z"/>
+      <path fill="#ffffff" opacity=".38" d="M59.3 57.2c4.4 1 9 5.8 11.3 12.3-5.8-.2-10.8-2.2-14.8-6.1 1.4-2.7 2.6-4.8 3.5-6.2Z"/>
+      <circle fill="#07102a" cx="82.6" cy="42.6" r="2.8"/>
+    </symbol>
+    <symbol id="icon-arrow" viewBox="0 0 20 20">
+      <path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-arrow-up-right" viewBox="0 0 20 20">
+      <path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-play" viewBox="0 0 20 20">
+      <path d="m7 4.8 8 5.2-8 5.2V4.8Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-close" viewBox="0 0 20 20">
+      <path d="m5 5 10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-spark" viewBox="0 0 20 20">
+      <path d="M10 1.8c.5 4.9 3.3 7.7 8.2 8.2-4.9.5-7.7 3.3-8.2 8.2C9.5 13.3 6.7 10.5 1.8 10c4.9-.5 7.7-3.3 8.2-8.2Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-sound-on" viewBox="0 0 20 20">
+      <path d="M4 8h3l4-3v10l-4-3H4V8Z" fill="currentColor"/>
+      <path d="M13.5 7.5a3.6 3.6 0 0 1 0 5M15.5 5.2a6.7 6.7 0 0 1 0 9.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-sound-off" viewBox="0 0 20 20">
+      <path d="M4 8h3l4-3v10l-4-3H4V8Z" fill="currentColor"/>
+      <path d="m13 8 4 4M17 8l-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-reset" viewBox="0 0 20 20">
+      <path d="M4.7 7.2A6.2 6.2 0 1 1 3.8 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M3.9 4.2v4.2h4.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 20 20">
+      <circle cx="8.7" cy="8.7" r="5.2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="m12.7 12.7 3.4 3.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-menu" viewBox="0 0 20 20">
+      <path d="M3 5.5h14M3 10h14M3 14.5h9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-shuffle" viewBox="0 0 20 20">
+      <path d="M3 6h2.4c1.4 0 2.2.7 3 1.9l3.2 4.2c.8 1.2 1.6 1.9 3 1.9H17M3 14h2.4c1.4 0 2.2-.7 3-1.9l3.2-4.2c.8-1.2 1.6-1.9 3-1.9H17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="m14.7 4 2.3 2-2.3 2M14.7 12l2.3 2-2.3 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-bookmark" viewBox="0 0 20 20">
+      <path d="M5.5 3.5h9a1 1 0 0 1 1 1v12L10 13l-5.5 3.5v-12a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-bookmark-fill" viewBox="0 0 20 20">
+      <path d="M5.5 3.5h9a1 1 0 0 1 1 1v12L10 13l-5.5 3.5v-12a1 1 0 0 1 1-1Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="icon-expand" viewBox="0 0 20 20">
+      <path d="M7 3H3v4M13 3h4v4M7 17H3v-4M13 17h4v-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-command" viewBox="0 0 20 20">
+      <path d="M7 5.5A2.5 2.5 0 1 0 4.5 8H7V5.5ZM7 8h6M13 5.5A2.5 2.5 0 1 1 15.5 8H13V5.5ZM7 12h6M7 12v2.5A2.5 2.5 0 1 1 4.5 12H7ZM13 12v2.5a2.5 2.5 0 1 0 2.5-2.5H13Z" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-chevron-down" viewBox="0 0 20 20">
+      <path d="m5 8 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-clock" viewBox="0 0 20 20">
+      <circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M10 6.5V10l2.6 1.6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-link" viewBox="0 0 20 20">
+      <path d="m8.2 11.8 3.6-3.6M6.8 14.4l-1.2 1.2a2.7 2.7 0 0 1-3.8-3.8l2.6-2.6a2.7 2.7 0 0 1 3.8 0M13.2 5.6l1.2-1.2a2.7 2.7 0 0 1 3.8 3.8l-2.6 2.6a2.7 2.7 0 0 1-3.8 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <div class="page-grain" aria-hidden="true"></div>
+
+  <header class="masthead" data-masthead>
+    <div class="masthead__inner">
+      <a class="brand" href="#top" aria-label="DeepSeek 深海游乐场首页">
+        <span class="brand-mark"><svg viewBox="0 0 128 80" aria-hidden="true"><use href="#icon-whale"/></svg></span>
+        <span class="brand-type">
+          <span class="brand-name">DeepSeek</span>
+          <span class="brand-sub">深海游乐场</span>
+        </span>
+      </a>
+
+      <div class="header-tools">
+        <button class="command-trigger" type="button" data-command-open aria-label="搜索游戏和热点，快捷键 Ctrl K">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-search"/></svg>
+          <span>搜索</span>
+        </button>
+        <button class="round-button sound-toggle" type="button" aria-label="关闭音效" aria-pressed="true">
+          <svg class="sound-on-icon" viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-sound-on"/></svg>
+          <svg class="sound-off-icon" viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-sound-off"/></svg>
+        </button>
+        <button class="round-button menu-toggle" type="button" data-menu-open aria-label="打开菜单" aria-expanded="false">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-menu"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard" id="top">
+    <section class="hero-compact" aria-labelledby="hero-title">
+      <div class="hero-main">
+        <h1 class="hero-title" id="hero-title">
+          <span class="hero-title-line">把灵感，</span><span class="hero-title-accent">玩成一片海<span class="title-dot">。</span></span>
+        </h1>
+        <p class="hero-intro">三款小游戏，即开即玩。</p>
+      </div>
+
+      <div class="hero-side">
+        <div class="hero-actions">
+          <button class="button button--blue button--hero" type="button" data-random-game>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-shuffle"/></svg>
+            随机开一局
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="dashboard-grid">
+      <section class="library-panel" id="games" aria-labelledby="games-title">
+        <header class="panel-head">
+          <div class="panel-title">
+            <h2 id="games-title">选择游戏</h2>
+          </div>
+        </header>
+
+        <div class="games-grid" id="gamesGrid">
+          <noscript><p class="noscript-note">需要开启 JavaScript 才能进入游戏大厅。</p></noscript>
+        </div>
+      </section>
+
+      <aside class="sonar-panel" id="sonar" aria-labelledby="sonar-title">
+        <div class="sonar-top">
+          <div class="sonar-title-group">
+            <h2 id="sonar-title">今日热点</h2>
+          </div>
+          <button type="button" class="sonar-refresh" data-refresh-hot>
+            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-reset"/></svg>
+            换一组
+          </button>
+        </div>
+
+        <div class="sonar-tabs" role="group" aria-label="热点分类">
+          <button type="button" class="is-active" data-hot-filter="all">全部</button>
+          <button type="button" data-hot-filter="模型">模型</button>
+          <button type="button" data-hot-filter="开源">开源</button>
+          <button type="button" data-hot-filter="产品">产品</button>
+          <button type="button" data-hot-filter="社区">社区</button>
+          <button type="button" data-hot-filter="saved">关注</button>
+        </div>
+
+        <div class="sonar-layout" data-sonar-scroll>
+          <div class="hot-feature" id="hotFeature"></div>
+          <div class="sonar-list-col">
+            <ol class="trend-list" id="trendList"></ol>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inline">
+      <div class="footer-brand">
+        <span class="footer-mark"><svg viewBox="0 0 128 80" aria-hidden="true"><use href="#icon-whale"/></svg></span>
+        <b>DeepSeek 深海游乐场</b>
+      </div>
+      <p class="footer-disclaimer">非官方社区企划 · 热点为编辑演示 · 数据仅存本地</p>
+      <button type="button" class="footer-submit" data-copy-brief>提交游戏</button>
+      <span class="footer-year">© 2026</span>
+    </div>
+  </footer>
+
+  <!-- Mobile menu -->
+  <div class="drawer-layer" id="mobileMenu" hidden>
+    <button class="drawer-scrim" type="button" data-menu-close aria-label="关闭菜单"></button>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="站点菜单" tabindex="-1">
+      <header class="drawer-head">
+        <span class="drawer-kicker">菜单</span>
+        <button class="round-button" type="button" data-menu-close aria-label="关闭菜单">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-close"/></svg>
+        </button>
+      </header>
+      <div class="drawer-games">
+        <span class="drawer-label">快速开始</span>
+        <button type="button" data-open-game="jump"><b>跳一跳</b></button>
+        <button type="button" data-open-game="fish"><b>合成大肥鱼</b></button>
+        <button type="button" data-open-game="tokens"><b>Token 消消乐</b></button>
+      </div>
+      <div class="drawer-foot">
+        <button type="button" data-command-open class="drawer-command">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-search"/></svg>
+          搜索游戏或热点
+        </button>
+        <button type="button" class="drawer-sound sound-toggle" aria-pressed="true" aria-label="关闭音效">
+          <span>音效</span><b data-sound-label>开启</b>
+          <svg class="sound-on-icon" viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-sound-on"/></svg>
+          <svg class="sound-off-icon" viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-sound-off"/></svg>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Command palette -->
+  <div class="command-layer" id="commandPalette" hidden>
+    <button class="command-scrim" type="button" data-command-close aria-label="关闭搜索"></button>
+    <div class="command-panel" role="dialog" aria-modal="true" aria-labelledby="commandLabel" tabindex="-1">
+      <h2 class="sr-only" id="commandLabel">搜索游乐场</h2>
+      <div class="command-search">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-search"/></svg>
+        <input id="commandInput" type="text" autocomplete="off" spellcheck="false" placeholder="搜索游戏、热点，或输入「随机」…" aria-label="搜索游戏和热点" aria-controls="commandResults">
+        <kbd>ESC</kbd>
+      </div>
+      <div class="command-results" id="commandResults" role="listbox" aria-label="搜索结果"></div>
+      <div class="command-foot">
+        <span><kbd>↑</kbd><kbd>↓</kbd> 移动</span>
+        <span><kbd>↵</kbd> 打开</span>
+        <span><kbd>ESC</kbd> 关闭</span>
+        <span class="command-foot__hint">试试「跳一跳」或「推理」</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game overlay -->
+  <div class="game-overlay" id="gameOverlay" hidden>
+    <div class="game-dialog" role="dialog" aria-modal="true" aria-labelledby="gameTitle" tabindex="-1">
+      <header class="game-topbar">
+        <div class="game-identity">
+          <span class="game-index" id="gameIndex">01</span>
+          <div>
+            <span class="game-eyebrow">NOW PLAYING / 深海游戏厅</span>
+            <h2 id="gameTitle">跳一跳</h2>
+          </div>
+        </div>
+        <div class="game-tools">
+          <span class="game-best">BEST <b id="gameBest">000</b></span>
+          <button type="button" class="game-tool" data-game-reset aria-label="重新开始">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-reset"/></svg>
+            <span>重开</span>
+          </button>
+          <button type="button" class="game-tool game-tool--icon" data-game-full aria-label="全屏游戏" aria-pressed="false">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-expand"/></svg>
+          </button>
+          <button type="button" class="game-close" data-game-close aria-label="关闭游戏">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-close"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="game-body" id="gameBody"></div>
+      <footer class="game-footer">
+        <span class="game-footer-left"><i></i><span id="gameControls">按住蓄力，松开起跳</span></span>
+        <span class="game-footer-right"><span class="game-footer-tip">ESC 退出 · 分数自动保存在本地</span></span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Signal detail -->
+  <div class="detail-overlay" id="detailOverlay" hidden>
+    <article class="detail-dialog" role="dialog" aria-modal="true" aria-labelledby="detailTitle" tabindex="-1">
+      <div class="detail-progress"><i data-detail-progress></i></div>
+      <button type="button" class="detail-close" data-detail-close aria-label="关闭热点详情">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-close"/></svg>
+      </button>
+      <div class="detail-top" id="detailTop"></div>
+      <div class="detail-content" id="detailContent" data-detail-scroll></div>
+      <footer class="detail-foot">
+        <span>编辑精选 · 非实时资讯</span>
+        <button type="button" class="detail-share" data-copy-signal>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-link"/></svg>
+          复制链接
+        </button>
+      </footer>
+    </article>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/audio.js"></script>
+  <script src="assets/games/jump.js"></script>
+  <script src="assets/games/fish.js"></script>
+  <script src="assets/games/tokens.js"></script>
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
