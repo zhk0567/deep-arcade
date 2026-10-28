@@ -7,6 +7,7 @@
    While websiteId is empty, no analytics request is made.
    ============================================================ */
 window.ARCADE_ANALYTICS = {
-  websiteId: "",
-  scriptSrc: "https://cloud.umami.is/script.js"
+  websiteId: "81573f4d-2ccc-473b-b838-5ecb05f94008",
+  scriptSrc: "https://cloud.umami.is/script.js",
+  domains: "xn--pssy23g5qs.fun,www.xn--pssy23g5qs.fun"
 };

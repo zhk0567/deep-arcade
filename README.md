@@ -46,14 +46,15 @@
 
 ### 访问统计（Umami）
 
-项目已接入 Umami 的加载与事件队列，但默认不发送数据。启用步骤：
+项目已接入 Umami Cloud，Website ID 与域名白名单配置在 `assets/js/analytics-config.js`。
 
-1. 登录 <https://cloud.umami.is>，创建一个站点，域名填 `xn--pssy23g5qs.fun` 或 `大肥鱼.fun`。
-2. 复制站点的 Website ID（UUID）。
-3. 填入 `assets/js/analytics-config.js` 的 `websiteId`。
-4. 如果使用自建 Umami，把 `scriptSrc` 改成自己的 `script.js` 地址。
+当前配置：
 
-未配置 `websiteId` 时，页面不会加载 Umami 脚本，也不会发出统计请求。
+- Website ID：`81573f4d-2ccc-473b-b838-5ecb05f94008`
+- 统计域名：`xn--pssy23g5qs.fun`、`www.xn--pssy23g5qs.fun`
+- 自建 Umami 时，把 `scriptSrc` 改成自己的 `script.js` 地址
+
+清空 `websiteId` 时，页面不会加载 Umami 脚本，也不会发出统计请求。
 
 已埋点事件：
 
@@ -64,6 +65,7 @@ article_click { article }
 search_open
 notice_open
 notice_dismiss
+fish_full_open
 fish_trial_open
 ```
 

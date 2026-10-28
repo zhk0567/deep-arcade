@@ -48,6 +48,9 @@
     script.setAttribute("data-website-id", websiteId);
     script.setAttribute("data-auto-track", "true");
     script.setAttribute("data-do-not-track", "true");
+    if (config.domains) {
+      script.setAttribute("data-domains", String(config.domains));
+    }
     script.onload = function () {
       window.setTimeout(flush, 0);
     };
