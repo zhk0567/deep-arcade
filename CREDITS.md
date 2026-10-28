@@ -1,24 +1,21 @@
 # 素材与致谢
 
-## DeepSeek Mint Cursors
+## DeepSeek-鲸鱼娘鼠标指针
 
-- 指针封装：<https://github.com/nibushiyigeren123-bot/DeepSeek-mint-cursors>
-- 角色素材作者：**YunYueSama**
-- 角色素材仓库：<https://github.com/YunYueSama/codex-deepseek-pet>
-- 许可：大肥鱼项目署名许可 1.0（自定义许可，允许使用/修改/商用，需保留作者与仓库署名）
-- 完整许可：[assets/cursors/LICENSE-DeepSeek-mint-cursors.txt](assets/cursors/LICENSE-DeepSeek-mint-cursors.txt)
+本站鼠标指针来自用户本地提供的 **DeepSeek-鲸鱼娘** Windows 指针包。
 
-本站使用的是从该项目 **64px Arrow.ani** 中提取的透明帧，缩放为 **48px PNG**：
+- 采用版本：静态皮肤 / 标准指针 / 大角色
+- 使用状态：Normal（普通选择）
+- 提取尺寸：64px
+- 网页文件：`assets/cursors/whale-girl-64.png`
+- 热点：`3 5`
 
-- 提取首帧
-- 64×64 → 48×48
-- 转为网页可用 PNG
-- 角色形象、动作、配色未重绘
+原指针包未附公开的开源许可证或作者署名信息；本站仅将提取出的 64px 透明帧用于网页光标，未重绘角色，也未将指针包用于再分发或商业销售。
 
-文件位置：`assets/cursors/deepseek-mint-48.png`
+原包中的 17 种状态、macOS Cape 和表情包未上传到本站。
 
-## 说明
+## 非官方声明
 
-本站为非官方 DeepSeek 社区企划。光标素材的使用不代表 DeepSeek 官方、YunYueSama 或指针项目作者对本站的背书。
+本站为非官方 DeepSeek 社区企划。光标素材的使用不代表 DeepSeek 官方、指针包作者或任何相关方对本站的背书。
 
 如权利人认为使用方式需要调整，请联系仓库维护者。

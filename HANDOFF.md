@@ -172,7 +172,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 | 合成大肥鱼完整版 | <https://大肥鱼.fun/fat-fish/> |
 | 旧入口（兼容跳转） | `/fish-v068.html`、`/fish-v068-v5.html`、`/fish-v068-v6.html` |
 | 鱼素材 | `/fat-fish/assets/` |
-| DeepSeek 光标 | `/assets/cursors/deepseek-mint-48.png` |
+| DeepSeek 光标 | `/assets/cursors/whale-girl-64.png` |
 
 > 旧入口现在都是极小的跳转页，统一跳到 `fat-fish/`。
 
@@ -197,12 +197,11 @@ F:\commercial\deep-arcade\
 │  ├─ css/
 │  │  ├─ arcade.css            # 基础样式
 │  │  ├─ theme.css             # 旧主题路径（保留兼容）
-│  │  ├─ theme-mint.css        # 当前主站主题（含 DeepSeek Mint 光标）
+│  │  ├─ theme-whale.css       # 当前主站主题（含鲸鱼娘光标）
 │  │  ├─ notice.css            # 公告栏、免责声明
 │  │  └─ games-extra.css       # 后五款游戏 UI
 │  ├─ cursors/
-│  │  ├─ deepseek-mint-48.png  # DeepSeek Mint 48px 光标（第三方素材）
-│  │  ├─ LICENSE-DeepSeek-mint-cursors.txt
+│  │  ├─ whale-girl-64.png     # DeepSeek-鲸鱼娘 64px 光标（用户提供）
 │  │  └─ deepseek-whale.svg    # 旧自绘鲸鱼光标（保留备用）
 │  ├─ games/
 │  │  ├─ jump.js
@@ -220,7 +219,7 @@ F:\commercial\deep-arcade\
 │     └─ site.js               # 主控制器
 ├─ README.md
 ├─ HANDOFF.md                  # 本文
-├─ CREDITS.md                  # 光标素材署名与许可
+├─ CREDITS.md                  # 光标素材说明
 ├─ 404.html
 ├─ CNAME
 ├─ robots.txt
@@ -265,8 +264,8 @@ localStorage["ds-arcade-best-<game-id>"]
 
 - 浅色鲜艳主题：暖白、珊瑚橙、湖水青、柠檬黄、电光蓝
 - 标题渐变、气泡、卡片悬停上浮/3D 倾斜
-- DeepSeek Mint Cursors 光标：从指针项目的 64px Arrow.ani 提取透明帧，缩放为 48px PNG
-- 光标许可：大肥鱼项目署名许可 1.0，需保留 YunYueSama 与指针项目仓库署名；详见 `CREDITS.md`
+- DeepSeek-鲸鱼娘光标：从用户提供的静态皮肤 Normal.ani 提取 64px 透明帧
+- 原指针包未附公开开源许可证；详见 `CREDITS.md`
 - `user-select: none`；输入框保留文字选择
 - 快速点击不误选文字
 - 主站资产业已加 `?v=20261028d`
@@ -474,7 +473,7 @@ python -m http.server 4173 --bind 127.0.0.1
 | 想改什么 | 文件 |
 |---|---|
 | 主站布局 / 文案 | `index.html` |
-| 主站主题 / 光标 / 防选中 | `assets/css/theme-mint.css`（当前）/ `theme.css`（旧路径） |
+| 主站主题 / 光标 / 防选中 | `assets/css/theme-whale.css`（当前）/ `theme.css`（旧路径） |
 | 主站逻辑 / 游戏目录 / 文章 | `assets/js/site.js` |
 | Umami | `assets/js/analytics-config.js`、`assets/js/analytics.js` |
 | 8 款游戏 | `assets/games/*.js` |
