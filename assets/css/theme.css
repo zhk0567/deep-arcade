@@ -1151,12 +1151,12 @@ img {
 @media (hover: hover) and (pointer: fine) {
   html,
   body {
-    cursor: url("../cursors/deepseek-whale.svg") 3 18, auto;
+    cursor: url("../cursors/deepseek-mint-48.png") 1 1, auto;
   }
 
   html body a,
   html body button,
   html body [role="button"] {
-    cursor: url("../cursors/deepseek-whale.svg") 3 18, pointer;
+    cursor: url("../cursors/deepseek-mint-48.png") 1 1, pointer;
   }
 }

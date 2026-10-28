@@ -87,7 +87,7 @@ fish_trial_open
 - 游戏弹层支持全屏、重开、ESC 退出，关闭后焦点回到打开位置。
 - 最高分只保存在浏览器 `localStorage`。
 - 顶部公告栏说明非官方企划与官方来源；可关闭，也可通过页脚「免责声明」再次打开完整声明。
-- 桌面端使用站内鲸鱼矢量生成的 DeepSeek 主题光标；快速点击不会误选文字。
+- 桌面端使用 DeepSeek Mint Cursors 的 48px 光标；快速点击不会误选文字。
 - 完整版鱼游戏的解锁卡牌在展示 3 秒后自动淡出；首页「戳一戳」会避免连续两次使用同一句语音。
 - 「合成大肥鱼」完整版提高了正文/按钮字号与文字对比度，棋盘标签同步放大。
 
@@ -141,6 +141,15 @@ deep-arcade/
 ├─ HANDOFF.md
 └─ README.md
 ```
+
+## 光标素材与许可
+
+- 指针项目：<https://github.com/nibushiyigeren123-bot/DeepSeek-mint-cursors>
+- 角色素材作者：**YunYueSama**，<https://github.com/YunYueSama/codex-deepseek-pet>
+- 许可：大肥鱼项目署名许可 1.0（需保留作者与仓库署名）
+- 本站修改：从 64px `Arrow.ani` 提取透明首帧，缩放为 48px PNG，仅用于网页光标
+- 文件：`assets/cursors/deepseek-mint-48.png`
+- 完整说明：[CREDITS.md](CREDITS.md) 与 [许可文本](assets/cursors/LICENSE-DeepSeek-mint-cursors.txt)
 
 ## 本地运行
 
