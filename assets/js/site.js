@@ -78,7 +78,8 @@
       index: "04",
       title: "提示词接龙",
       tag: "PROMPT CHAIN",
-      status: "soon",
+      status: "live",
+      controls: "读懂语境，选出最合适的下一句 · 数字键 1 / 2 / 3",
       description: "一句接一句，和鲸鱼一起把脑洞滚成雪球。接得住，还要接得妙。",
       artClass: "prompt"
     },
@@ -87,7 +88,8 @@
       index: "05",
       title: "深海寻鲸",
       tag: "FIND THE WHALE",
-      status: "soon",
+      status: "live",
+      controls: "点击海域发射声呐 · 根据距离和热度锁定鲸鱼",
       description: "根据微弱的声呐信号，在噪声海域里找到那条鲸。耐心比运气更重要。",
       artClass: "radar"
     },
@@ -96,7 +98,8 @@
       index: "06",
       title: "幻觉猎手",
       tag: "SPOT THE GHOST",
-      status: "soon",
+      status: "live",
+      controls: "判断真假 · 键盘 T / F 或点击按钮",
       description: "识别一本正经的胡话，在错误蔓延之前按下捕获。保持怀疑，也保持好奇。",
       artClass: "hunter"
     },
@@ -105,7 +108,8 @@
       index: "07",
       title: "鲸落拼图",
       tag: "PIECE BY PIECE",
-      status: "soon",
+      status: "live",
+      controls: "点击空格旁的图块移动 · 拼回完整鲸鱼",
       description: "把散落的鲸鱼插画拼回完整，让灵感重新浮上海面。每一块都藏着线索。",
       artClass: "puzzle"
     },
@@ -114,7 +118,8 @@
       index: "08",
       title: "R1 迷宫",
       tag: "THINK AHEAD",
-      status: "soon",
+      status: "live",
+      controls: "方向键 / WASD 移动 · 手机使用方向按钮",
       description: "每一步都要想清楚。用越来越长的推理路线，走出越来越深的迷宫。",
       artClass: "maze"
     }
