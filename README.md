@@ -51,6 +51,7 @@
 - 移动端菜单提供快速开始、搜索和音效。
 - 游戏弹层支持全屏、重开、ESC 退出，关闭后焦点回到打开位置。
 - 最高分只保存在浏览器 `localStorage`。
+- 顶部公告栏说明非官方企划与官方来源；可关闭，也可通过页脚「免责声明」再次打开完整声明。
 
 ## 技术栈
 
@@ -72,7 +73,8 @@ deep-arcade/
 ├─ assets/
 │  ├─ css/
 │  │  ├─ arcade.css        # 合并不带皮肤的基础样式与布局
-│  │  └─ theme.css         # 浅色鲜艳主题、卡片与动效
+│  │  ├─ theme.css         # 浅色鲜艳主题、卡片与动效
+│  │  └─ notice.css        # 公告栏与免责声明弹层
 │  ├─ js/
 │  │  ├─ audio.js          # WebAudio 音效
 │  │  └─ site.js           # 游戏目录、官方文章、搜索、弹层
@@ -208,6 +210,7 @@ window.DeepSeekGames["my-game"] = {
 
 ```text
 localStorage["ds-arcade-best-<game-id>"]
+localStorage["ds-arcade-notice-dismissed"]
 ```
 
 ## 替换官方文章
@@ -243,6 +246,7 @@ localStorage["ds-arcade-best-<game-id>"]
 - [x] Token 消消乐可完整进行到结算
 - [x] 最新动态展示官方文章，可直接跳转原文
 - [x] 分类筛选、全部文章入口、搜索面板可用
+- [x] 顶部公告可关闭，页脚与移动端均可再次打开完整免责声明
 - [x] 标题无裁切，卡片文字无重叠
 - [x] 命令面板与移动菜单可用
 - [x] 无 JavaScript 异常（浏览器自动播放提示除外）

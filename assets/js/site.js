@@ -10,6 +10,10 @@
   var detailOverlay = document.getElementById("detailOverlay");
   var commandLayer = document.getElementById("commandPalette");
   var mobileMenu = document.getElementById("mobileMenu");
+  var noticeBar = document.getElementById("noticeBar");
+  var noticeOverlay = document.getElementById("noticeModal");
+  var noticeLastFocused = null;
+  var noticeTimer = null;
   var gamesGrid = document.getElementById("gamesGrid");
   var body = document.body;
   var gameDialog = gameOverlay ? gameOverlay.querySelector(".game-dialog") : null;
@@ -366,8 +370,45 @@
   }
 
   function syncBodyLock() {
-    var locked = !gameOverlay.hidden || !detailOverlay.hidden || !commandLayer.hidden || !mobileMenu.hidden;
+    var locked = !gameOverlay.hidden || !detailOverlay.hidden || !commandLayer.hidden ||
+      !mobileMenu.hidden || !noticeOverlay.hidden;
     body.classList.toggle("is-locked", locked);
+  }
+
+  function openNotice() {
+    if (!noticeOverlay || !noticeOverlay.hidden) return;
+    window.clearTimeout(noticeTimer);
+    closeMenu(true);
+    closeCommand(true, false);
+    noticeLastFocused = getReturnFocus("[data-notice-open]");
+    noticeOverlay.hidden = false;
+    syncBodyLock();
+    var dialog = noticeOverlay.querySelector(".notice-dialog");
+    requestAnimationFrame(function () {
+      noticeOverlay.classList.add("is-open");
+      if (dialog) dialog.focus();
+    });
+  }
+
+  function closeNotice() {
+    if (!noticeOverlay || noticeOverlay.hidden) return;
+    noticeOverlay.classList.remove("is-open");
+    window.clearTimeout(noticeTimer);
+    noticeTimer = window.setTimeout(function () {
+      noticeOverlay.hidden = true;
+      syncBodyLock();
+      if (noticeLastFocused && noticeLastFocused.focus && document.contains(noticeLastFocused)) {
+        noticeLastFocused.focus();
+      }
+    }, 220);
+  }
+
+  function dismissNotice() {
+    if (!noticeBar) return;
+    noticeBar.hidden = true;
+    try {
+      window.localStorage.setItem("ds-arcade-notice-dismissed", "1");
+    } catch (error) {}
   }
 
   function getReturnFocus(fallbackSelector) {
@@ -1173,6 +1214,22 @@
   document.addEventListener("click", function (event) {
     var target = event.target;
 
+    if (target.closest("[data-notice-open]")) {
+      event.preventDefault();
+      openNotice();
+      return;
+    }
+
+    if (target.closest("[data-notice-dismiss]")) {
+      dismissNotice();
+      return;
+    }
+
+    if (target.closest("[data-notice-close]")) {
+      closeNotice();
+      return;
+    }
+
     var saveButton = target.closest("[data-save-hot]");
     if (saveButton) {
       event.preventDefault();
@@ -1305,6 +1362,10 @@
     if (event.target === gameOverlay) closeGame();
   });
 
+  noticeOverlay.addEventListener("click", function (event) {
+    if (event.target === noticeOverlay) closeNotice();
+  });
+
   detailOverlay.addEventListener("click", function (event) {
     if (event.target === detailOverlay) closeHotDetail();
   });
@@ -1323,6 +1384,16 @@
   document.querySelector("[data-detail-scroll]").addEventListener("scroll", updateDetailProgress, { passive: true });
 
   document.addEventListener("keydown", function (event) {
+    if (!noticeOverlay.hidden) {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeNotice();
+      } else {
+        trapFocus(event, noticeOverlay.querySelector(".notice-dialog"));
+      }
+      return;
+    }
+
     if (!commandLayer.hidden) {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -1464,6 +1535,12 @@
   /* ------------------------------------------------------------------
      Init
      ------------------------------------------------------------------ */
+
+  try {
+    if (window.localStorage.getItem("ds-arcade-notice-dismissed") === "1" && noticeBar) {
+      noticeBar.hidden = true;
+    }
+  } catch (error) {}
 
   renderGames();
   renderWire();

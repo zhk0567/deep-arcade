@@ -16,6 +16,7 @@
   <script>document.documentElement.classList.add("js");</script>
   <link rel="stylesheet" href="assets/css/arcade.css">
   <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="stylesheet" href="assets/css/notice.css">
 </head>
 <body>
   <a class="skip-link" href="#games">跳到游戏大厅</a>
@@ -118,6 +119,17 @@
     </div>
   </header>
 
+  <div class="notice-bar" id="noticeBar">
+    <div class="notice-inner">
+      <span class="notice-label">公告</span>
+      <p>本站为非官方社区企划，与 DeepSeek 官方无隶属关系。站内文章均链接官方来源。</p>
+      <button type="button" class="notice-open" data-notice-open>免责声明</button>
+      <button type="button" class="notice-dismiss" data-notice-dismiss aria-label="关闭公告">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-close"/></svg>
+      </button>
+    </div>
+  </div>
+
   <main class="dashboard" id="top">
     <section class="hero-compact" aria-labelledby="hero-title">
       <div class="hero-main">
@@ -192,8 +204,9 @@
         <span class="footer-mark"><svg viewBox="0 0 128 80" aria-hidden="true"><use href="#icon-whale"/></svg></span>
         <b>DeepSeek 深海游乐场</b>
       </div>
-      <p class="footer-disclaimer">非官方社区企划 · 文章均链接 DeepSeek 官方来源 · 数据仅存本地</p>
+      <button type="button" class="footer-disclaimer" data-notice-open>非官方社区企划 · 文章均链接 DeepSeek 官方来源 · 数据仅存本地 · 免责声明</button>
       <button type="button" class="footer-submit" data-copy-brief>提交游戏</button>
+      <button type="button" class="footer-notice" data-notice-open>免责声明</button>
       <span class="footer-year">© 2026</span>
     </div>
   </footer>
@@ -246,6 +259,49 @@
         <span class="command-foot__hint">试试「跳一跳」或「推理」</span>
       </div>
     </div>
+  </div>
+
+  <!-- Notice / disclaimer -->
+  <div class="notice-layer" id="noticeModal" hidden>
+    <button class="notice-scrim" type="button" data-notice-close aria-label="关闭免责声明"></button>
+    <article class="notice-dialog" role="dialog" aria-modal="true" aria-labelledby="noticeTitle" tabindex="-1">
+      <header class="notice-dialog__head">
+        <div>
+          <span class="notice-dialog__kicker">NOTICE / 2026.10.28</span>
+          <h2 id="noticeTitle">免责声明与公告</h2>
+        </div>
+        <button type="button" class="notice-close" data-notice-close aria-label="关闭免责声明">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-close"/></svg>
+        </button>
+      </header>
+      <div class="notice-dialog__body">
+        <p class="notice-lead">访问或使用本站前，请阅读以下说明。继续使用本站即表示你理解并同意这些内容。</p>
+        <section>
+          <h3>1. 非官方企划</h3>
+          <p>本站是 DeepSeek 主题的非官方社区企划，与 DeepSeek 官方及其关联公司没有隶属、合作或背书关系。站内使用相关名称和标识仅用于说明主题与内容来源。</p>
+        </section>
+        <section>
+          <h3>2. 内容与版权</h3>
+          <p>游戏由本站以 HTML、CSS、JavaScript 和 Canvas 实现，仅用于娱乐与学习。右侧文章为 DeepSeek 官方页面的标题、摘要和链接，著作权归原作者及原平台所有；点击后跳转至第三方网站，其内容和可用性由该网站负责。</p>
+          <p>本站不保证文章或外部链接始终完整、及时或无误。如权利人认为内容需要更正或下架，请通过下方 GitHub Issues 联系处理。</p>
+        </section>
+        <section>
+          <h3>3. 数据与隐私</h3>
+          <p>本站不要求注册、登录，不收集账号信息，也不上传游戏分数。最高分、公告关闭状态等仅保存在你的浏览器 localStorage 中；清除浏览器数据后会一并删除。托管平台 GitHub Pages 可能按其自身隐私政策记录基础访问日志。</p>
+        </section>
+        <section>
+          <h3>4. 使用与责任</h3>
+          <p>本站内容按“现状”提供，不对可用性、准确性或适销性作任何明示或默示担保。因使用本站或依赖站内内容产生的损失，站方不承担责任。站内内容不构成投资、法律、医疗或其他专业建议。</p>
+        </section>
+        <div class="notice-dialog__foot">
+          <a href="https://github.com/zhk0567/deep-arcade/issues" target="_blank" rel="noopener noreferrer">
+            联系与更正
+            <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg>
+          </a>
+          <button type="button" class="notice-confirm" data-notice-close>我知道了</button>
+        </div>
+      </div>
+    </article>
   </div>
 
   <!-- Game overlay -->
