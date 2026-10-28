@@ -51,7 +51,7 @@
       tag: "HOLD & HOP",
       status: "live",
       controls: "按住蓄力，松开起跳 · 空格也可以",
-      description: "按住蓄力，踩着浮岛向深处跳。",
+      description: "完整试玩版：四角色、四地图、三道具与本地存档。",
       artClass: "jump"
     },
     {
@@ -797,6 +797,12 @@
       return candidate.id === id;
     });
     if (!game) return;
+
+    if (id === "jump") {
+      trackEvent("jump_full_open");
+      window.location.assign("jump/");
+      return;
+    }
 
     if (id === "fish") {
       trackEvent("fish_full_open");

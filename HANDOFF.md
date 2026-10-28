@@ -168,6 +168,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 | 页面 | URL |
 |---|---|
 | 主站 | <https://大肥鱼.fun> |
+| 跳一跳完整版 | <https://大肥鱼.fun/jump/> |
 | 合成大肥鱼完整版 | <https://大肥鱼.fun/fat-fish/> |
 | 旧入口（兼容跳转） | `/fish-v068.html`、`/fish-v068-v5.html`、`/fish-v068-v6.html` |
 | 鱼素材 | `/fat-fish/assets/` |
@@ -182,6 +183,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 ```text
 F:\commercial\deep-arcade\
 ├─ index.html                  # 主站入口
+├─ jump/                       # 大肥鱼跳一跳 v11 完整试玩版（Cocos 静态构建）
 ├─ fat-fish/                   # 合成大肥鱼 v0.6.8 生产版
 │  ├─ index.html               # 219 KB 首屏
 │  ├─ README.md                # 生产版说明
@@ -348,6 +350,7 @@ python -m http.server 4173 --bind 127.0.0.1
 打开：
 
 - 主站：<http://127.0.0.1:4173/>
+- 跳一跳完整版：<http://127.0.0.1:4173/jump/>
 - 鱼完整版：<http://127.0.0.1:4173/fat-fish/>
 
 项目没有 build 命令、没有依赖安装步骤。
