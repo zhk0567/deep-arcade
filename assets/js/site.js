@@ -60,8 +60,8 @@
       title: "合成大肥鱼",
       tag: "MERGE & GROW",
       status: "live",
-      controls: "移动光标选择位置 · 点击或空格投放",
-      description: "相同的小鱼合体，养出更大的鱼。",
+      controls: "移动鼠标选择位置 · 点击 / 空格投放 · P 暂停",
+      description: "完整版：10 级形态、图鉴、语音与本地存档。",
       artClass: "fish"
     },
     {
@@ -544,6 +544,11 @@
   function refreshBestDisplays() {
     document.querySelectorAll("[data-best]").forEach(function (element) {
       var id = element.getAttribute("data-best");
+      if (id === "fish") {
+        element.hidden = true;
+        element.textContent = "";
+        return;
+      }
       var best = getBest(id);
       element.hidden = !best;
       element.textContent = best ? "最高 " + padScore(best) : "";
@@ -792,6 +797,18 @@
       return candidate.id === id;
     });
     if (!game) return;
+
+    if (id === "fish") {
+      trackEvent("fish_full_open");
+      var link = document.createElement("a");
+      link.href = "fish-v068.html";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      return;
+    }
 
     clearTimeout(menuTimer);
     closeMenu(true);
