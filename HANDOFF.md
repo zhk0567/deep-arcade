@@ -60,10 +60,10 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 
 **本地与远程 Git 状态：**
 
-- 本地 HEAD：`0209a46`（目录整理提交）
-- 远程 HEAD：`70628d5`（目录整理提交，API 创建）
+- 本地 HEAD：`49d5067`（目录整理 + 源码同步）
+- 远程 HEAD：`a079795`（目录整理后的文档提交；以最新 git log 为准）
 - 本地与远程不是同一条提交链，直接 `git push` 可能 non-fast-forward
-- 远程包含完整源码 `source/merge-fat-fish/`；本地工作区目前只同步了生产版和 `source/README.md`，需要源码时重新 clone
+- 本地与远程现在都包含完整源码 `source/merge-fat-fish/`（147 个文件，约 56.6 MB）
 - 下一个 agent 如果继续用 Git，**先 `git fetch` / 重新 clone**，不要直接强推
 
 ### 2.3.1 其他贡献者 / 权限（已确认）
@@ -73,7 +73,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 2026-10-28 检查结果：
 
 - 主分支只有 `main`，没有其他分支、tag 或 release
-- 目录整理提交 `70628d5` 为 `zhk0567` 的提交
+- 目录整理提交与后续文档提交均为 `zhk0567` 的提交
 - 唯一一条其他账号提交：
 
 | 项 | 值 |
