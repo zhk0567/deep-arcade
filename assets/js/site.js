@@ -801,7 +801,7 @@
     if (id === "fish") {
       trackEvent("fish_full_open");
       var link = document.createElement("a");
-      link.href = "fish-v068.html?v=5";
+      link.href = "fish-v068-v5.html";
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       document.body.appendChild(link);
