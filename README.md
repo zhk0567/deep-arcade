@@ -26,13 +26,15 @@
 ### 游戏
 
 - **跳一跳**：按住蓄力，松开起跳；随机平台、连击、完美落点、实时力度条与失败结算。
-- **合成大肥鱼**：圆形物理堆叠、八级鱼、碰撞合成、连锁提示、溢出判定与本地最高分。
+- **合成大肥鱼**：圆形物理堆叠、八级鱼、碰撞合成、连锁提示、溢出判定与本地最高分。游戏内页脚可打开作者提供的「好友试玩完整版 v0.6.8」。
 - **Token 消消乐**：8×8 棋盘、六种 Token、24 步、相邻交换、三连消除、连锁倍率、深渊补给、无解重排、提示一步、键盘操作与结束结算。
 - **提示词接龙**：10 轮语境选择、每轮 15 秒、3 条命、连续答对加成与接龙链展示。
 - **深海寻鲸**：8×8 声呐网格、8 次探测、曼哈顿距离与冷热反馈、计时加分。
 - **幻觉猎手**：16 条真/假断言、每轮 6 秒、3 条命、连击与知识点解释。
 - **鲸落拼图**：3×3 滑动拼图、程序化鲸鱼插画、步数与时间计分、目标图参考。
 - **R1 迷宫**：9×9 / 13×13 / 17×17 三层生成迷宫、倒计时、键盘与手机方向键、逐层加分。
+
+> 好友试玩完整版的内嵌 PNG 立绘已转为 WebP（质量 82），首次加载约 8 MB，仍保留全部角色与语音。
 
 ### 最新动态
 
@@ -41,6 +43,31 @@
 - 分类筛选：全部 / 模型 / 开源 / 产品。
 - 面板右上角「全部文章」直达官方新闻索引。
 - 文章日期、来源和标题均来自官方页面，不在站内伪造新闻内容。
+
+### 访问统计（Umami）
+
+项目已接入 Umami 的加载与事件队列，但默认不发送数据。启用步骤：
+
+1. 登录 <https://cloud.umami.is>，创建一个站点，域名填 `xn--pssy23g5qs.fun` 或 `大肥鱼.fun`。
+2. 复制站点的 Website ID（UUID）。
+3. 填入 `assets/js/analytics-config.js` 的 `websiteId`。
+4. 如果使用自建 Umami，把 `scriptSrc` 改成自己的 `script.js` 地址。
+
+未配置 `websiteId` 时，页面不会加载 Umami 脚本，也不会发出统计请求。
+
+已埋点事件：
+
+```text
+game_open     { game }
+game_end      { game, score, duration }
+article_click { article }
+search_open
+notice_open
+notice_dismiss
+fish_trial_open
+```
+
+页面浏览量由 Umami 脚本自动记录。统计不写 Cookie，不记录搜索原文，不建立用户画像；脚本带 `data-do-not-track`，会尊重浏览器的 Do Not Track 设置。
 
 ### 视觉
 
@@ -62,6 +89,7 @@
 - 原生 HTML / CSS / JavaScript，无框架、无构建步骤。
 - Canvas 2D 游戏，DOM / CSS 实现三消与界面动效。
 - WebAudio 合成音效，无外部音频文件。
+- 可选 Umami 匿名统计，不使用 Cookie。
 - 全部视觉素材由 CSS、内联 SVG 与 Canvas 绘制。
 
 ## 目录结构
@@ -69,6 +97,7 @@
 ```text
 deep-arcade/
 ├─ index.html              # 单页应用入口
+├─ fish-v068.html          # 合成大肥鱼好友试玩完整版（WebP 优化后约 8 MB）
 ├─ 404.html                # GitHub Pages 404 页面
 ├─ CNAME                   # 自定义域名（Punycode）
 ├─ robots.txt
@@ -82,6 +111,8 @@ deep-arcade/
 │  │  └─ games-extra.css   # 后五款游戏的界面与响应式布局
 │  ├─ js/
 │  │  ├─ audio.js          # WebAudio 音效
+│  │  ├─ analytics-config.js # Umami Website ID 配置
+│  │  ├─ analytics.js      # Umami 加载与事件队列
 │  │  └─ site.js           # 游戏目录、官方文章、搜索、弹层
 │  └─ games/
 │     ├─ jump.js

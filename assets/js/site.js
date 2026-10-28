@@ -19,6 +19,7 @@
   var gameDialog = gameOverlay ? gameOverlay.querySelector(".game-dialog") : null;
   var activeGame = null;
   var activeGameId = null;
+  var gameStartedAt = 0;
   var closeTimer = null;
   var menuTimer = null;
   var lastFocused = null;
@@ -380,6 +381,12 @@
     body.classList.toggle("is-locked", locked);
   }
 
+  function trackEvent(name, data) {
+    if (window.ArcadeAnalytics && typeof window.ArcadeAnalytics.track === "function") {
+      window.ArcadeAnalytics.track(name, data);
+    }
+  }
+
   function openNotice() {
     if (!noticeOverlay || !noticeOverlay.hidden) return;
     window.clearTimeout(noticeTimer);
@@ -388,6 +395,7 @@
     noticeLastFocused = getReturnFocus("[data-notice-open]");
     noticeOverlay.hidden = false;
     syncBodyLock();
+    trackEvent("notice_open");
     var dialog = noticeOverlay.querySelector(".notice-dialog");
     requestAnimationFrame(function () {
       noticeOverlay.classList.add("is-open");
@@ -411,6 +419,7 @@
   function dismissNotice() {
     if (!noticeBar) return;
     noticeBar.hidden = true;
+    trackEvent("notice_dismiss");
     try {
       window.localStorage.setItem("ds-arcade-notice-dismissed", "1");
     } catch (error) {}
@@ -602,7 +611,7 @@
 
     featureBox.innerHTML =
       '<a class="hot-feature__card article-link" href="' + escapeHtml(feature.source.url) +
-      '" target="_blank" rel="noopener noreferrer">' +
+      '" target="_blank" rel="noopener noreferrer" data-article="' + escapeHtml(feature.id) + '">' +
       '<div class="hot-feature__top">' +
       '<span class="hot-feature__cat">' + escapeHtml(feature.category) + "</span>" +
       '<span class="article-date">' + escapeHtml(feature.date) + "</span>" +
@@ -621,7 +630,7 @@
         return (
           '<li class="trend-item">' +
           '<a class="trend-button article-link" href="' + escapeHtml(item.source.url) +
-          '" target="_blank" rel="noopener noreferrer">' +
+          '" target="_blank" rel="noopener noreferrer" data-article="' + escapeHtml(item.id) + '">' +
           '<span class="trend-rank">' + String(index + 2) + "</span>" +
           '<span class="trend-main"><span class="trend-title">' + escapeHtml(item.title) + "</span>" +
           '<span class="trend-meta">' + escapeHtml(item.source.label) + " · " + escapeHtml(item.date) + "</span></span>" +
@@ -774,6 +783,8 @@
     document.getElementById("gameIndex").textContent = game.index;
     document.getElementById("gameControls").textContent = game.controls;
     document.getElementById("gameBest").textContent = padScore(getBest(game.id));
+    var trialLink = document.querySelector("[data-fish-trial]");
+    if (trialLink) trialLink.hidden = game.id !== "fish";
   }
 
   function openGame(id) {
@@ -805,7 +816,9 @@
     }
 
     activeGameId = id;
+    gameStartedAt = Date.now();
     updateGameChrome(game);
+    trackEvent("game_open", { game: id });
     document.getElementById("gameBody").innerHTML = "";
     gameDialog.className = "game-dialog game-dialog--" + id;
     gameOverlay.hidden = false;
@@ -822,6 +835,11 @@
       audio: window.ArcadeAudio,
       onExit: closeGame,
       onGameEnd: function (score) {
+        trackEvent("game_end", {
+          game: id,
+          score: Number(score) || 0,
+          duration: gameStartedAt ? Math.round((Date.now() - gameStartedAt) / 1000) : 0
+        });
         var previousBest = getBest(id);
         var nextBest = Math.max(previousBest, score);
         if (score > previousBest) setBest(id, score);
@@ -1079,6 +1097,7 @@
 
   function openCommand(initialQuery) {
     closeMenu(true);
+    trackEvent("search_open");
     window.clearTimeout(commandTimer);
     var opener = getReturnFocus("[data-command-open]");
     lastFocused = opener;
@@ -1218,6 +1237,16 @@
 
   document.addEventListener("click", function (event) {
     var target = event.target;
+
+    var articleLink = target.closest(".article-link");
+    if (articleLink) {
+      trackEvent("article_click", { article: articleLink.getAttribute("data-article") || "" });
+    }
+
+    var trialLink = target.closest("[data-fish-trial]");
+    if (trialLink) {
+      trackEvent("fish_trial_open");
+    }
 
     if (target.closest("[data-notice-open]")) {
       event.preventDefault();

@@ -1188,3 +1188,40 @@
 }
 
 
+
+/* Link to the standalone friend-trial version of the fish game. */
+.game-trial-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border: 1px solid rgba(223, 245, 107, 0.28);
+  border-radius: 5px;
+  background: rgba(223, 245, 107, 0.08);
+  color: var(--lime);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.game-trial-link[hidden] {
+  display: none;
+}
+
+.game-trial-link:hover {
+  border-color: rgba(223, 245, 107, 0.55);
+  background: rgba(223, 245, 107, 0.16);
+}
+
+@media (max-width: 760px) {
+  .game-trial-link:not([hidden]) + .game-footer-tip {
+    display: none;
+  }
+
+  .game-trial-link {
+    font-size: 7px;
+    padding: 2px 5px;
+  }
+}

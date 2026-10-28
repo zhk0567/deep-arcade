@@ -1,5 +1,6 @@
-﻿* text=auto
+* text=auto
 *.css text eol=lf
 *.js text eol=lf
 *.html text eol=lf
+fish-v068.html -text
 *.md text eol=lf

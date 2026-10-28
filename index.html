@@ -288,7 +288,8 @@
         </section>
         <section>
           <h3>3. 数据与隐私</h3>
-          <p>本站不要求注册、登录，不收集账号信息，也不上传游戏分数。最高分、公告关闭状态等仅保存在你的浏览器 localStorage 中；清除浏览器数据后会一并删除。托管平台 GitHub Pages 可能按其自身隐私政策记录基础访问日志。</p>
+          <p>本站不要求注册、登录，不收集账号信息，也不上传游戏分数。最高分、公告关闭状态等仅保存在你的浏览器 localStorage 中；清除浏览器数据后会一并删除。</p>
+          <p>本站预留了 Umami 匿名统计接入。配置站点 ID 后，会记录页面访问、游戏打开/结束、文章点击和搜索入口等事件，用于了解整体使用情况；不使用 Cookie，不记录搜索原文，不建立用户画像。未配置站点 ID 时不会向统计服务发送数据。托管平台 GitHub Pages 可能按其自身隐私政策记录基础访问日志。</p>
         </section>
         <section>
           <h3>4. 使用与责任</h3>
@@ -341,7 +342,10 @@
       <div class="game-body" id="gameBody"></div>
       <footer class="game-footer">
         <span class="game-footer-left"><i></i><span id="gameControls">按住蓄力，松开起跳</span></span>
-        <span class="game-footer-right"><span class="game-footer-tip">ESC 退出 · 分数自动保存在本地</span></span>
+        <span class="game-footer-right">
+          <a class="game-trial-link" data-fish-trial href="fish-v068.html" target="_blank" rel="noopener noreferrer" title="完整好友试玩版，首次加载约 8 MB" aria-label="打开完整好友试玩版 v0.6.8，首次加载约 8 MB" hidden>好友试玩版 v0.6.8 <span aria-hidden="true">↗</span></a>
+          <span class="game-footer-tip">ESC 退出 · 分数自动保存在本地</span>
+        </span>
       </footer>
     </div>
   </div>
@@ -368,6 +372,8 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="assets/js/audio.js"></script>
+  <script src="assets/js/analytics-config.js"></script>
+  <script src="assets/js/analytics.js"></script>
   <script src="assets/games/jump.js"></script>
   <script src="assets/games/fish.js"></script>
   <script src="assets/games/tokens.js"></script>
