@@ -165,8 +165,27 @@ body{color:var(--fish-ink)!important}
  .buddy-bubble p{font-size:12px!important}
 }
 </style>
+<style id="arcade-bar">
+.arcade-bar{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,rgba(216,244,95,.55),rgba(100,215,247,.3) 52%,rgba(255,123,99,.2));border-bottom:1px solid rgba(31,61,52,.12);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.arcade-bar__inner{max-width:1120px;margin:0 auto;padding:8px 35px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.arcade-back{display:inline-flex;align-items:center;gap:6px;color:#3f55f5;font-size:13px;font-weight:700;text-decoration:none;letter-spacing:.2px;padding:3px 0}
+.arcade-back svg{width:16px;height:16px;flex:0 0 auto}
+.arcade-back:hover{color:#2f43d8}
+.arcade-bar__note{font-size:10.5px;color:#536b5c;letter-spacing:.4px;white-space:nowrap}
+@media(max-width:600px){.arcade-bar__inner{padding:7px 15px}.arcade-back{font-size:12px}.arcade-bar__note{display:none}}
+</style>
 </head>
 <body>
+<div class="arcade-bar">
+  <div class="arcade-bar__inner">
+    <a class="arcade-back" href="./" aria-label="返回 DeepSeek 深海游乐场首页">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M11.5 5 6.5 10l5 5M6.8 10h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>返回游乐场</span>
+    </a>
+    <span class="arcade-bar__note">非官方社区企划 · 合成大肥鱼 v0.6.8</span>
+  </div>
+</div>
+
 <div class="ambient ambient-one" aria-hidden="true"></div><div class="ambient ambient-two" aria-hidden="true"></div>
 <div class="app-shell" id="appShell" data-screen="home">
   <header class="site-header">

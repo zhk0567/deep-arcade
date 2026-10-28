@@ -102,7 +102,7 @@ fish_trial_open
 ```text
 deep-arcade/
 ├─ index.html              # 单页应用入口
-├─ fish-v068-v5.html          # 合成大肥鱼好友试玩完整版（首屏 HTML 约 0.2 MB）
+├─ fish-v068-v6.html          # 合成大肥鱼好友试玩完整版（首屏 HTML 约 0.2 MB）
 ├─ fish-v068-assets/       # 立绘、图鉴与语音素材（外部加载）
 ├─ 404.html                # GitHub Pages 404 页面
 ├─ CNAME                   # 自定义域名（Punycode）
