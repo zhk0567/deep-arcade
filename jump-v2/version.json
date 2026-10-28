@@ -1,0 +1,13 @@
+{
+  "packageId": "whale-hop-v11-friends-999-20261028",
+  "edition": "好友试玩版",
+  "version": 11,
+  "platform": "Windows x64",
+  "runtime": "v24.18.0",
+  "port": 18766,
+  "startingItems": {
+    "shield": 999,
+    "agent": 999,
+    "context": 999
+  }
+}

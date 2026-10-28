@@ -168,7 +168,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 | 页面 | URL |
 |---|---|
 | 主站 | <https://大肥鱼.fun> |
-| 跳一跳完整版 | <https://大肥鱼.fun/jump/> |
+| 跳一跳完整版 | <https://大肥鱼.fun/jump-v2/> |
 | 合成大肥鱼完整版 | <https://大肥鱼.fun/fat-fish/> |
 | 旧入口（兼容跳转） | `/fish-v068.html`、`/fish-v068-v5.html`、`/fish-v068-v6.html` |
 | 鱼素材 | `/fat-fish/assets/` |
@@ -183,7 +183,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 ```text
 F:\commercial\deep-arcade\
 ├─ index.html                  # 主站入口
-├─ jump/                       # 大肥鱼跳一跳 v11 完整试玩版（Cocos 静态构建）
+├─ jump-v2/                       # 大肥鱼跳一跳 v11 完整试玩版（Cocos 静态构建）
 ├─ fat-fish/                   # 合成大肥鱼 v0.6.8 生产版
 │  ├─ index.html               # 219 KB 首屏
 │  ├─ README.md                # 生产版说明
@@ -295,18 +295,19 @@ localStorage["ds-arcade-best-<game-id>"]
 
 ---
 
-### 5.5 跳一跳完整版（jump/）
+### 5.5 跳一跳完整版（jump-v2/）
 
 - 版本：好友试玩版 v11（`whale-hop-v11-friends-999-20261028`）
 - 技术：Cocos Creator Web 构建，纯静态
-- 文件：251 个，约 40.9 MB
-- 入口：`jump/index.html`（顶部返回栏）
-- 游戏画面：`jump/play.html`
-- 资源：`jump/assets/`、`jump/cocos-js/`、`jump/src/`
-- 主站「跳一跳」卡片当前页跳转到 `jump/`
+- 文件：251 个，约 13.3 MB（原 40.9 MB）
+- 入口：`jump-v2/index.html`（顶部返回栏）
+- 游戏画面：`jump-v2/play.html`
+- 资源：`jump-v2/assets/`、`jump-v2/cocos-js/`、`jump-v2/src/`
+- 主站「跳一跳」卡片当前页跳转到 `jump-v2/`
 - 不包含 Windows 启动器、`runtime/node.exe`、`server.mjs`
-- 首次加载约 40 MB，游戏内会显示“正在准备角色”；后续由浏览器缓存
-- 引擎许可：`jump/licenses/COCOS-ENGINE-LICENSE.md`
+- 素材已压缩：PNG 26.2 MB → 3.4 MB（WebP 内容，保留 .png 文件名）；WAV 5.5 MB → 0.7 MB（MP3 内容，保留 .wav 文件名）；首屏约 13.3 MB
+- 旧 `jump/` 仍保留在远程仓库作为回退入口，但主站不再使用
+- 引擎许可：`jump-v2/licenses/COCOS-ENGINE-LICENSE.md`
 
 ## 6. Umami 统计
 
@@ -363,7 +364,7 @@ python -m http.server 4173 --bind 127.0.0.1
 打开：
 
 - 主站：<http://127.0.0.1:4173/>
-- 跳一跳完整版：<http://127.0.0.1:4173/jump/>
+- 跳一跳完整版：<http://127.0.0.1:4173/jump-v2/>
 - 鱼完整版：<http://127.0.0.1:4173/fat-fish/>
 
 项目没有 build 命令、没有依赖安装步骤。

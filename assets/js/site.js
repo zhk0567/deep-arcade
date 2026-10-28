@@ -800,7 +800,7 @@
 
     if (id === "jump") {
       trackEvent("jump_full_open");
-      window.location.assign("jump/");
+      window.location.assign("jump-v2/");
       return;
     }
 
