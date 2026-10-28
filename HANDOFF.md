@@ -60,10 +60,10 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 
 **本地与远程 Git 状态：**
 
-- 本地 HEAD：`566391f`（`Open fish game in the current tab`）
-- 远程 HEAD：`675955e`（同一功能提交，API 创建）
+- 本地 HEAD：`0209a46`（目录整理提交）
+- 远程 HEAD：`70628d5`（目录整理提交，API 创建）
 - 本地与远程不是同一条提交链，直接 `git push` 可能 non-fast-forward
-- 远程多出用户后来提交的 `merge-fat-fish/` 大项目；本地没有
+- 远程包含完整源码 `source/merge-fat-fish/`；本地工作区目前只同步了生产版和 `source/README.md`，需要源码时重新 clone
 - 下一个 agent 如果继续用 Git，**先 `git fetch` / 重新 clone**，不要直接强推
 
 ### 2.3.1 其他贡献者 / 权限（已确认）
@@ -73,7 +73,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 2026-10-28 检查结果：
 
 - 主分支只有 `main`，没有其他分支、tag 或 release
-- 本文档提交前的 HEAD `675955e` 为 `zhk0567` 的提交
+- 目录整理提交 `70628d5` 为 `zhk0567` 的提交
 - 唯一一条其他账号提交：
 
 | 项 | 值 |
@@ -128,7 +128,31 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 - 公钥曾发给用户，但用户尚未确认添加
 - **绝对不要把私钥写入仓库或文档**
 
-### 2.5 可部署安装包
+### 2.5 合并结果 / 目录说明
+
+合作者的完整工程已经归档到 `source/merge-fat-fish/`：
+
+- 147 个文件，约 56.63 MB
+- `web/`：模块化浏览器版、Node 排行榜后台、61 项测试
+- `wechat-minigame/`：微信小游戏移植骨架
+- 原始高分辨率 PNG 和原始 WebP/MP3 均保留
+
+线上实际运行的是 `fat-fish/` 优化生产版：
+
+- 首屏 `index.html` 约 219 KB
+- 44 个外部素材约 1.6 MB（23 WebP + 21 MP3）
+- 保留 10 级形态、图鉴、语音、存档、排行榜前端逻辑
+- 增加返回栏、字体可读性、3 秒解锁卡淡出、防选中、主题光标
+
+没有直接把 `source/merge-fat-fish/web/dist` 作为线上入口，原因是：
+
+1. 原始素材约 56 MB，首屏和冷启动明显更慢
+2. 该目录包含 Node 后台和微信骨架，GitHub Pages 不能运行后台
+3. 当前 `fat-fish/` 是同一套游戏经过素材压缩、按需加载和 UI 调整后的生产构建
+
+旧入口 `fish-v068.html`、`fish-v068-v5.html`、`fish-v068-v6.html` 都保留为 721 字节的跳转页，统一跳到 `fat-fish/`。
+
+### 2.6 可部署安装包
 
 - `F:\commercial\deep-arcade-static.zip`（约 1.7 MB）
 - 包含：主站、8 款游戏、`fat-fish/` 完整版、44 个素材、Nginx 示例、部署说明
