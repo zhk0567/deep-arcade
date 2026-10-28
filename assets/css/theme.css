@@ -1125,3 +1125,38 @@ body {
     height: 38px;
   }
 }
+
+
+/* ---------- DeepSeek cursor + click-safe selection ---------- */
+
+body {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body {
+    cursor: url("../cursors/deepseek-whale.svg") 3 18, auto;
+  }
+
+  html body a,
+  html body button,
+  html body [role="button"] {
+    cursor: url("../cursors/deepseek-whale.svg") 3 18, pointer;
+  }
+}

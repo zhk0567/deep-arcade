@@ -85,7 +85,16 @@ html:has(dialog[open]){overflow:hidden}
 @media(prefers-reduced-motion:reduce){.unlock-card .is-spinning{animation:none;transform:rotateY(1260deg)}}
 </style>
   
-<link rel="icon" type="image/webp" href="fish-v068-assets/b70ae539e83fa272.webp"><link rel="apple-touch-icon" href="fish-v068-assets/28b34e74669a2294.webp"></head>
+<link rel="icon" type="image/webp" href="fish-v068-assets/b70ae539e83fa272.webp"><link rel="apple-touch-icon" href="fish-v068-assets/28b34e74669a2294.webp"><style>
+html,body{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+input,textarea,[contenteditable="true"]{-webkit-user-select:text;user-select:text;cursor:text}
+img{-webkit-user-drag:none;user-drag:none}
+@media(hover:hover) and (pointer:fine){
+  html,body{cursor:url("assets/cursors/deepseek-whale.svg") 3 18,auto}
+  html body a,html body button,html body [role="button"]{cursor:url("assets/cursors/deepseek-whale.svg") 3 18,pointer}
+}
+</style>
+</head>
 <body>
 <div class="ambient ambient-one" aria-hidden="true"></div><div class="ambient ambient-two" aria-hidden="true"></div>
 <div class="app-shell" id="appShell" data-screen="home">
@@ -946,7 +955,7 @@ window.FatFishTarot = [
  };
  class HomeDialogue {
   constructor(random=Math.random){this.random=random;this.previous=new Map();}
-  next(pose,commit=true){const kind=pose==='shy'?'shy':'playful',choices=lines[kind].filter(line=>line.clip!==this.previous.get(kind));const choice=choices[Math.min(choices.length-1,Math.floor(this.random()*choices.length))];if(commit)this.remember(pose,choice);return choice;}
+  next(pose){const kind=pose==='shy'?'shy':'playful',choices=lines[kind].filter(line=>line.clip!==this.previous.get(kind));const choice=choices[Math.min(choices.length-1,Math.floor(this.random()*choices.length))];this.remember(pose,choice);return choice;}
   remember(pose,choice){this.previous.set(pose==='shy'?'shy':'playful',choice.clip);}
  }
  return {HomeDialogue,lines};
@@ -982,7 +991,7 @@ window.FatFishTarot = [
   let loaded = false, loadFailed = false, galleryLevel = 1, activePointer = null;
   let particles = [], floatingScores = [], shakeUntil = 0, toastTimer, buddyTimer, homeTimer;
   let session = new Session({ onEvent: onGameEvent });
-  let unlockPhase='idle',unlockSerial=0,unlockFallback,unlockHide;
+  let unlockPhase='idle',unlockSerial=0,unlockFallback,unlockHide,unlockAutoHide;
   const roundKey = record => JSON.stringify([record.seed,record.ticks,record.moves]);
   function ensureAudio(){ sound.unlock(); }
   function saveRound(){if(qaMode||!activeRun)return;window.FatFishLeaderboard.save({run:activeRun.run,moves:activeRun.moves,ticks:Math.round(session.clock/(1000/60))});}
@@ -1167,13 +1176,13 @@ window.FatFishTarot = [
     const known=progress.levels();$('galleryIndex').textContent=(known.indexOf(galleryLevel)+1)+' / '+known.length+' 张已发现';$('galleryPrev').disabled=$('galleryNext').disabled=known.length<2;
   }
   function resetUnlocks(){
-    unlockSerial++;clearTimeout(unlockFallback);clearTimeout(unlockHide);unlockPhase='idle';unlocks.reset();
+    unlockSerial++;clearTimeout(unlockFallback);clearTimeout(unlockHide);clearTimeout(unlockAutoHide);unlockPhase='idle';unlocks.reset();
     $('unlockNotice').hidden=true;$('unlockNotice').classList.remove('is-leaving');$('companion').dataset.unlocking='false';
   }
   function dismissUnlock(){
     if(unlocks.active===null||unlockPhase==='leaving')return;
     if(unlockPhase!=='revealed')return;
-    clearTimeout(unlockFallback);unlockPhase='leaving';$('unlockNotice').classList.add('is-leaving');
+    clearTimeout(unlockFallback);clearTimeout(unlockAutoHide);unlockPhase='leaving';$('unlockNotice').classList.add('is-leaving');
     unlockHide=setTimeout(()=>{unlocks.finish();unlockPhase='idle';$('unlockNotice').hidden=true;$('unlockNotice').classList.remove('is-leaving');$('companion').dataset.unlocking='false';},260);
   }
   function finishUnlock(){
@@ -1181,11 +1190,11 @@ window.FatFishTarot = [
     clearTimeout(unlockFallback);unlockPhase='revealed';const def=C.levels[unlocks.active-1];
     $('unlockInner').classList.remove('is-spinning');$('unlockInner').classList.add('is-unlocked');
     $('unlockTitle').textContent='成功解锁 · '+def.name;
-    $('unlockClose').disabled=false;$('unlockClose').textContent='收下这份礼遇';
+    $('unlockClose').disabled=false;$('unlockClose').textContent='收下这份礼遇';clearTimeout(unlockAutoHide);unlockAutoHide=setTimeout(dismissUnlock,3000);
     $('liveAnnouncement').textContent='成功解锁'+def.name+'，已经收入人物图鉴。';
     if(!say(unlocks.active===MAX_LEVEL?'win':'discover')&&!voice.speaking)sound.play('discover',unlocks.active);
-    // The player keeps the reveal open as long as they like; the board keeps
-    // simulating, and only the card itself intercepts pointer input.
+    // Keep the reveal visible for three seconds, then softly dismiss it.
+    // The board keeps simulating; the card only intercepts pointer input.
   }
   function processUnlocks(){
     if(unlocks.active!==null||!unlocks.waiting||session.state==='ready'||document.querySelector('dialog[open]'))return;
