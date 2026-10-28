@@ -122,6 +122,7 @@ deep-arcade/
 │  ├─ css/
 │  │  ├─ arcade.css
 │  │  ├─ theme.css
+│  │  ├─ theme-mint.css      # 当前主站主题（含 DeepSeek Mint 光标）
 │  │  ├─ notice.css
 │  │  └─ games-extra.css
 │  ├─ js/

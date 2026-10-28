@@ -194,7 +194,8 @@ F:\commercial\deep-arcade\
 ├─ assets/
 │  ├─ css/
 │  │  ├─ arcade.css            # 基础样式
-│  │  ├─ theme.css             # 浅色主题、光标、选择保护
+│  │  ├─ theme.css             # 旧主题路径（保留兼容）
+│  │  ├─ theme-mint.css        # 当前主站主题（含 DeepSeek Mint 光标）
 │  │  ├─ notice.css            # 公告栏、免责声明
 │  │  └─ games-extra.css       # 后五款游戏 UI
 │  ├─ cursors/
@@ -456,7 +457,7 @@ python -m http.server 4173 --bind 127.0.0.1
 | 想改什么 | 文件 |
 |---|---|
 | 主站布局 / 文案 | `index.html` |
-| 主站主题 / 光标 / 防选中 | `assets/css/theme.css` |
+| 主站主题 / 光标 / 防选中 | `assets/css/theme-mint.css`（当前）/ `theme.css`（旧路径） |
 | 主站逻辑 / 游戏目录 / 文章 | `assets/js/site.js` |
 | Umami | `assets/js/analytics-config.js`、`assets/js/analytics.js` |
 | 8 款游戏 | `assets/games/*.js` |
