@@ -1,0 +1,20 @@
+{
+  "source": "Microsoft Edge speech service via edge-tts 7.3.1",
+  "voice": "zh-CN-XiaoyiNeural",
+  "rate": "+8%",
+  "pitch": "+14Hz",
+  "volume": "-22%",
+  "lines": {
+    "home-cute": "嗯？你来啦，嘿嘿。",
+    "home-shy": "哎呀，有点害羞啦。",
+    "praise": "好棒呀！",
+    "discover": "哇，好漂亮呀！",
+    "combo": "太厉害啦！",
+    "combo-alt": "哇，连起来啦！",
+    "no-save": "还没有上一局呢，来玩一局吧。",
+    "failed-save": "上局已经结束啦，我们再来一局吧。",
+    "saved": "存好啦，等你回来。",
+    "welcome-back": "回来啦，继续加油吧！",
+    "win": "你也太棒啦！"
+  }
+}

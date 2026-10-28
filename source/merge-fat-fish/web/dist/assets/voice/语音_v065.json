@@ -1,0 +1,33 @@
+{
+  "source": "Microsoft Edge speech service via edge-tts 7.3.1",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "home": {
+    "rate": "-8%",
+    "pitch": "+6Hz"
+  },
+  "cheer": {
+    "rate": "+5%",
+    "pitch": "+8Hz"
+  },
+  "volume": "-25%",
+  "note": "Natural speech with separate wording, pacing and pitch; no expressive-style API is claimed.",
+  "lines": {
+    "home-cute-v065": "嗯？你来陪我啦，嘿嘿。",
+    "home-cute-2-v065": "来嘛，今天的好运分你一半呀。",
+    "home-cute-3-v065": "想要摸摸头，可以嘛？",
+    "home-cute-4-v065": "给你一个小抱抱，好不好呀？",
+    "home-cute-5-v065": "再陪我玩一会儿嘛。",
+    "home-cute-6-v065": "你一来，我就好开心呀！",
+    "home-cute-7-v065": "出发啦，要带上我哦。",
+    "home-shy-v065": "哎呀，你这样，人家会害羞的嘛。",
+    "home-shy-2-v065": "别靠这么近啦，脸都红了。",
+    "home-shy-3-v065": "就再陪我一小会儿嘛，好不好？",
+    "home-shy-4-v065": "被你发现啦，不许笑我哦。",
+    "home-shy-5-v065": "好嘛，最喜欢和你一起玩啦。",
+    "praise-v065": "哇，好棒啊！",
+    "discover-v065": "哇，好漂亮呀！",
+    "combo-v065": "你也太厉害了吧！",
+    "combo-alt-v065": "哇，又连上了！",
+    "win-v065": "好厉害，我都看呆啦！"
+  }
+}

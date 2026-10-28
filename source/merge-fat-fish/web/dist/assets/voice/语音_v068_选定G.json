@@ -1,0 +1,38 @@
+{
+  "source": "Microsoft Edge speech service via edge-tts 7.3.1",
+  "selection": "User selected audition G",
+  "voice": "zh-CN-XiaoyiNeural",
+  "rate": "-7%",
+  "pitch": "+3Hz",
+  "volume": "-20%",
+  "selectedAudition": {
+    "file": "G_再陪一会儿_晓伊.mp3",
+    "text": "就再陪我一小会儿嘛，好不好？",
+    "reusedAs": "home-cute-v068.mp3",
+    "sha256": "0a7d504d7b3e87bb9e9de1d78132e030c9417ce653219a527b3364603b5f176d"
+  },
+  "note": "All 21 clips use the same chosen G voice and prosody. The selected sample itself is reused exactly. Playback volume cap remains 0.28.",
+  "lines": {
+    "home-cute-v068": "就再陪我一小会儿嘛，好不好？",
+    "home-cute-2-v068": "今天也想和你一起玩。",
+    "home-cute-3-v068": "嘿嘿，给你一点好运。",
+    "home-cute-4-v068": "给你一个小小的拥抱。",
+    "home-cute-5-v068": "再陪我一会儿，好不好？",
+    "home-cute-6-v068": "见到你就很开心呀。",
+    "home-cute-7-v068": "准备好了？一起出发吧。",
+    "home-shy-v068": "哎呀，有一点害羞。",
+    "home-shy-2-v068": "这样会脸红的呀。",
+    "home-shy-3-v068": "再靠近一点点，好不好？",
+    "home-shy-4-v068": "被你发现啦，嘿嘿。",
+    "home-shy-5-v068": "最喜欢和你玩啦。",
+    "praise-v068": "好棒呀！",
+    "discover-v068": "新朋友来啦！",
+    "combo-v068": "太厉害了！",
+    "combo-alt-v068": "哇，又连起来了！",
+    "win-v068": "你真的好厉害！",
+    "no-save-v068": "还没有存档，陪我玩一局吧。",
+    "failed-save-v068": "上局结束啦，再试一次吧。",
+    "saved-v068": "存好啦，等你回来。",
+    "welcome-back-v068": "回来啦，我们继续吧。"
+  }
+}

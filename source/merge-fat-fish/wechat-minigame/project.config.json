@@ -1,0 +1,23 @@
+{
+  "appid": "touristappid",
+  "projectname": "MergeFatFish",
+  "compileType": "game",
+  "description": "合成大肥鱼 · 微信小游戏（骨架版）",
+  "packOptions": {
+    "ignore": [
+      { "type": "folder", "value": "tools" },
+      { "type": "file", "value": "移植说明.md" }
+    ]
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": false,
+    "postcss": false,
+    "minified": true,
+    "uglifyFileName": false,
+    "ignoreDevUnusedFiles": false,
+    "ignoreUploadUnusedFiles": true
+  },
+  "condition": {}
+}
