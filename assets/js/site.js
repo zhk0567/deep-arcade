@@ -800,13 +800,7 @@
 
     if (id === "fish") {
       trackEvent("fish_full_open");
-      var link = document.createElement("a");
-      link.href = "fish-v068-v6.html";
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
+      window.location.assign("fish-v068-v6.html");
       return;
     }
 
