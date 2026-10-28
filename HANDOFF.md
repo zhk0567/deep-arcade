@@ -60,11 +60,44 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 
 **本地与远程 Git 状态：**
 
-- 本地 HEAD：`1e39ad2`（`Add arcade return bar to fish page`）
-- 远程 HEAD：`dc1ab9b`（API 创建的同一内容提交）
+- 本地 HEAD：`566391f`（`Open fish game in the current tab`）
+- 远程 HEAD：`675955e`（同一功能提交，API 创建）
 - 本地与远程不是同一条提交链，直接 `git push` 可能 non-fast-forward
 - 远程多出用户后来提交的 `merge-fat-fish/` 大项目；本地没有
 - 下一个 agent 如果继续用 Git，**先 `git fetch` / 重新 clone**，不要直接强推
+
+### 2.3.1 其他贡献者 / 权限（需要用户确认）
+
+2026-10-28 检查结果：
+
+- 主分支只有 `main`，没有其他分支、tag 或 release
+- 本文档提交前的 HEAD `675955e` 为 `zhk0567` 的提交
+- 唯一一条其他账号提交：
+
+| 项 | 值 |
+|---|---|
+| SHA | `4adbfef6969c8fac11935415b42262d77e00c952` |
+| 作者 | `lyh2723790237-oss <lyh2723790237@gmail.com>` |
+| 时间 | 2026-10-28 04:17:47 UTC（北京时间 12:17） |
+| 信息 | `Add complete Merge Fat Fish v0.6.8 project and WeChat skeleton` |
+| 改动 | 148 个文件，+4272 行；新增 `merge-fat-fish/`，另修改 `README.md` +5 |
+
+说明：
+
+- 该提交没有修改主站 `index.html`、`assets/js/site.js` 等运行代码
+- 它新增的 `merge-fat-fish/` 目前未被站点使用，但会随 GitHub Pages 一起被公开托管
+- 该提交的 README 改动后来被我们的版本覆盖，`merge-fat-fish/` 文件仍保留
+- 仓库 collaborators 中有 `Lyh5590`（write 权限），但历史提交里没有该账号的提交
+- `lyh2723790237-oss` 不在当前 collaborators 列表中，可能是提交后被移除，或使用了其他本地 Git 身份
+- `main` 分支保护未开启
+
+**如果这些不是用户自己的账号，建议：**
+
+1. 移除 `Lyh5590` 的 write 权限
+2. 检查 GitHub 的 Sessions / SSH keys / GPG keys / Deploy keys / Webhooks
+3. 确认 `merge-fat-fish/` 是否要保留；不需要就移到单独分支或删除
+4. 开启 main 分支保护，至少禁止 force push
+
 
 ### 2.4 阿里云 ECS（已购买，尚未部署站点）
 
