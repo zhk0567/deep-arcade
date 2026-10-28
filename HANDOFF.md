@@ -295,6 +295,19 @@ localStorage["ds-arcade-best-<game-id>"]
 
 ---
 
+### 5.5 跳一跳完整版（jump/）
+
+- 版本：好友试玩版 v11（`whale-hop-v11-friends-999-20261028`）
+- 技术：Cocos Creator Web 构建，纯静态
+- 文件：251 个，约 40.9 MB
+- 入口：`jump/index.html`（顶部返回栏）
+- 游戏画面：`jump/play.html`
+- 资源：`jump/assets/`、`jump/cocos-js/`、`jump/src/`
+- 主站「跳一跳」卡片当前页跳转到 `jump/`
+- 不包含 Windows 启动器、`runtime/node.exe`、`server.mjs`
+- 首次加载约 40 MB，游戏内会显示“正在准备角色”；后续由浏览器缓存
+- 引擎许可：`jump/licenses/COCOS-ENGINE-LICENSE.md`
+
 ## 6. Umami 统计
 
 已接入 Umami Cloud。
