@@ -800,7 +800,7 @@
 
     if (id === "fish") {
       trackEvent("fish_full_open");
-      window.location.assign("fish-v068-v6.html");
+      window.location.assign("fat-fish/");
       return;
     }
 

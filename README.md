@@ -103,34 +103,42 @@ fish_trial_open
 
 ```text
 deep-arcade/
-├─ index.html              # 单页应用入口
-├─ fish-v068-v6.html          # 合成大肥鱼好友试玩完整版（首屏 HTML 约 0.2 MB）
-├─ fish-v068-assets/       # 立绘、图鉴与语音素材（外部加载）
-├─ 404.html                # GitHub Pages 404 页面
-├─ CNAME                   # 自定义域名（Punycode）
+├─ index.html              # 主站单页入口
+├─ fat-fish/               # 合成大肥鱼 v0.6.8 生产版
+│  ├─ index.html           # 首屏约 219 KB
+│  ├─ README.md            # 生产版说明
+│  └─ assets/              # 23 张 WebP + 21 条 MP3（相对加载）
+├─ source/
+│  └─ merge-fat-fish/      # 合作者完整源码、Node 后台、测试、微信小游戏骨架
+├─ fish-v068.html          # 旧入口 → fat-fish/ 的跳转页
+├─ fish-v068-v5.html       # 旧入口 → fat-fish/ 的跳转页
+├─ fish-v068-v6.html       # 旧入口 → fat-fish/ 的跳转页
+├─ 404.html
+├─ CNAME
 ├─ robots.txt
 ├─ sitemap.xml
-├─ .nojekyll               # 关闭 GitHub Pages 的 Jekyll 处理
+├─ .nojekyll
 ├─ assets/
 │  ├─ css/
-│  │  ├─ arcade.css        # 合并不带皮肤的基础样式与布局
-│  │  ├─ theme.css         # 浅色鲜艳主题、卡片与动效
-│  │  ├─ notice.css        # 公告栏与免责声明弹层
-│  │  └─ games-extra.css   # 后五款游戏的界面与响应式布局
+│  │  ├─ arcade.css
+│  │  ├─ theme.css
+│  │  ├─ notice.css
+│  │  └─ games-extra.css
 │  ├─ js/
-│  │  ├─ audio.js          # WebAudio 音效
-│  │  ├─ analytics-config.js # Umami Website ID 配置
-│  │  ├─ analytics.js      # Umami 加载与事件队列
-│  │  └─ site.js           # 游戏目录、官方文章、搜索、弹层
+│  │  ├─ audio.js
+│  │  ├─ analytics-config.js
+│  │  ├─ analytics.js
+│  │  └─ site.js
 │  └─ games/
 │     ├─ jump.js
-│     ├─ fish.js
+│     ├─ fish.js           # 旧轻量版，主站卡片已不再挂载
 │     ├─ tokens.js
 │     ├─ prompt.js
 │     ├─ radar.js
 │     ├─ hunter.js
 │     ├─ puzzle.js
 │     └─ maze.js
+├─ HANDOFF.md
 └─ README.md
 ```
 
