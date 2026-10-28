@@ -66,7 +66,9 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 - 远程多出用户后来提交的 `merge-fat-fish/` 大项目；本地没有
 - 下一个 agent 如果继续用 Git，**先 `git fetch` / 重新 clone**，不要直接强推
 
-### 2.3.1 其他贡献者 / 权限（需要用户确认）
+### 2.3.1 其他贡献者 / 权限（已确认）
+
+> **已确认（2026-10-28）**：`4adbfef` 来自合作者，`Lyh5590` 是合作者账号；权限和 `merge-fat-fish/` 均保留，不视为异常提交。
 
 2026-10-28 检查结果：
 
@@ -91,7 +93,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 - `lyh2723790237-oss` 不在当前 collaborators 列表中，可能是提交后被移除，或使用了其他本地 Git 身份
 - `main` 分支保护未开启
 
-**如果这些不是用户自己的账号，建议：**
+**用户已确认这些是合作者账号，以下仅作为未来安全排查清单：**
 
 1. 移除 `Lyh5590` 的 write 权限
 2. 检查 GitHub 的 Sessions / SSH keys / GPG keys / Deploy keys / Webhooks
