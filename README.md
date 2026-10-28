@@ -2,6 +2,8 @@
 
 一个 DeepSeek 主题的社区迷你游戏站。8 款游戏统一平铺在一个视口内，旁边是一列可筛选、可直接跳转的 DeepSeek 官方动态。无登录、无构建步骤、无第三方运行时依赖，打开即玩。
 
+> 后续接手请先阅读：[HANDOFF.md](HANDOFF.md)。
+
 - 正式域名：<https://大肥鱼.fun>
 - GitHub Pages：<https://zhk0567.github.io/deep-arcade/>
 - 源码仓库：<https://github.com/zhk0567/deep-arcade>
