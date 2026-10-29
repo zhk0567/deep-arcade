@@ -10,14 +10,20 @@
   <meta property="og:title" content="DeepSeek 深海游乐场">
   <meta property="og:description" content="8 款小游戏与 DeepSeek 官方最新动态。把灵感，玩成一片海。">
   <meta property="og:url" content="https://xn--pssy23g5qs.fun/">
+  <meta property="og:image" content="https://xn--pssy23g5qs.fun/assets/cursors/whale-girl-64.png">
   <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="DeepSeek 深海游乐场">
+  <meta name="twitter:description" content="8 款小游戏与 DeepSeek 官方最新动态。把灵感，玩成一片海。">
+  <meta name="twitter:image" content="https://xn--pssy23g5qs.fun/assets/cursors/whale-girl-64.png">
   <title>DeepSeek 深海游乐场 · 把灵感，玩成一片海</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234d6bfe'/%3E%3Cpath d='M12 36c2-11 11-19 24-19 9 0 16 4 20 11h8c2 0 3 2 1 4l-6 5c-1 1-2 2-4 2h-5c-4 5-11 8-18 8-12 0-21-4-20-11Z' fill='white'/%3E%3Ccircle cx='43' cy='30' r='2' fill='%234d6bfe'/%3E%3C/svg%3E">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/css/arcade.css?v=20261028g">
-  <link rel="stylesheet" href="assets/css/theme-whale.css?v=1">
-  <link rel="stylesheet" href="assets/css/notice.css?v=20261028g">
-  <link rel="stylesheet" href="assets/css/games-extra.css?v=20261028g">
+  <link rel="stylesheet" href="assets/css/arcade.css?v=20261029b">
+  <link rel="stylesheet" href="assets/css/theme-whale.css?v=20261029b">
+  <link rel="stylesheet" href="assets/css/notice.css?v=20261029b">
+  <link rel="stylesheet" href="assets/css/games-extra.css?v=20261029b">
+  <link rel="dns-prefetch" href="https://cloud.umami.is">
+  <link rel="preload" href="assets/js/site.js?v=20261029b" as="script">
 </head>
 <body>
   <a class="skip-link" href="#games">跳到游戏大厅</a>
@@ -206,7 +212,6 @@
         <b>DeepSeek 深海游乐场</b>
       </div>
       <button type="button" class="footer-disclaimer" data-notice-open>非官方社区企划 · 文章均链接 DeepSeek 官方来源 · 数据仅存本地 · 免责声明</button>
-      <button type="button" class="footer-submit" data-copy-brief>提交游戏</button>
       <button type="button" class="footer-notice" data-notice-open>免责声明</button>
       <span class="footer-year">© 2026</span>
     </div>
@@ -224,9 +229,6 @@
       </header>
       <div class="drawer-games">
         <span class="drawer-label">快速开始</span>
-        <button type="button" data-open-game="jump"><b>跳一跳</b></button>
-        <button type="button" data-open-game="fish"><b>合成大肥鱼</b></button>
-        <button type="button" data-open-game="tokens"><b>Token 消消乐</b></button>
       </div>
       <div class="drawer-foot">
         <button type="button" data-command-open class="drawer-command">
@@ -347,45 +349,17 @@
       <footer class="game-footer">
         <span class="game-footer-left"><i></i><span id="gameControls">按住蓄力，松开起跳</span></span>
         <span class="game-footer-right">
-          <a class="game-trial-link" data-fish-trial href="fat-fish/" title="完整好友试玩版，首屏约 0.2 MB，素材按需加载" aria-label="打开完整好友试玩版 v0.6.8，首屏约 0.2 MB，素材按需加载" hidden>好友试玩版 v0.6.8 <span aria-hidden="true">↗</span></a>
           <span class="game-footer-tip">ESC 退出 · 分数自动保存在本地</span>
         </span>
       </footer>
     </div>
   </div>
 
-  <!-- Signal detail -->
-  <div class="detail-overlay" id="detailOverlay" hidden>
-    <article class="detail-dialog" role="dialog" aria-modal="true" aria-labelledby="detailTitle" tabindex="-1">
-      <div class="detail-progress"><i data-detail-progress></i></div>
-      <button type="button" class="detail-close" data-detail-close aria-label="关闭热点详情">
-        <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-close"/></svg>
-      </button>
-      <div class="detail-top" id="detailTop"></div>
-      <div class="detail-content" id="detailContent" data-detail-scroll></div>
-      <footer class="detail-foot">
-        <span>编辑精选 · 非实时资讯</span>
-        <button type="button" class="detail-share" data-copy-signal>
-          <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-link"/></svg>
-          复制链接
-        </button>
-      </footer>
-    </article>
-  </div>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="assets/js/audio.js"></script>
-  <script src="assets/js/analytics-config.js?v=20261028g"></script>
-  <script src="assets/js/analytics.js?v=20261028g"></script>
-  <script src="assets/games/jump.js"></script>
-  <script src="assets/games/fish.js"></script>
-  <script src="assets/games/tokens.js"></script>
-  <script src="assets/games/prompt.js"></script>
-  <script src="assets/games/radar.js"></script>
-  <script src="assets/games/hunter.js"></script>
-  <script src="assets/games/puzzle.js"></script>
-  <script src="assets/games/maze.js"></script>
-  <script src="assets/js/site.js?v=20261028i"></script>
+  <script defer src="assets/js/audio.js?v=20261029b"></script>
+  <script defer src="assets/js/analytics-config.js?v=20261029b"></script>
+  <script defer src="assets/js/analytics.js?v=20261029b"></script>
+  <script defer src="assets/js/site.js?v=20261029b"></script>
 </body>
 </html>

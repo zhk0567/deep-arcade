@@ -11,3 +11,5 @@ Cocos Creator Web 构建的完整跳一跳试玩版。
 - 不需要包内的 `runtime/node.exe`、`server.mjs` 或启动 CMD
 
 主站「跳一跳」卡片会当前页跳转到 `jump/`。
+
+已关闭 Cocos 默认开场闪屏（`splashScreen.totalTime = 0`），并移除无用的 Node 许可证文本。

@@ -5,9 +5,8 @@
   "use strict";
 
   var BEST_PREFIX = "ds-arcade-best-";
-  var SAVED_KEY = "ds-arcade-saved-signals";
+  var ASSET_VERSION = "20261029b";
   var gameOverlay = document.getElementById("gameOverlay");
-  var detailOverlay = document.getElementById("detailOverlay");
   var commandLayer = document.getElementById("commandPalette");
   var mobileMenu = document.getElementById("mobileMenu");
   var noticeBar = document.getElementById("noticeBar");
@@ -20,6 +19,7 @@
   var activeGame = null;
   var activeGameId = null;
   var gameStartedAt = 0;
+  var openRequestId = 0;
   var closeTimer = null;
   var menuTimer = null;
   var lastFocused = null;
@@ -27,12 +27,19 @@
   var commandTimer = null;
   var commandReturnFocus = null;
   var hotFilter = "all";
-  var hotOffset = 0;
-  var currentSignalId = null;
-  var savedSignals = loadSaved();
   var commandCommands = [];
   var commandIndex = 0;
   var commandQuery = "";
+  var gameScriptPromises = {};
+
+  var GAME_SCRIPTS = {
+    tokens: "assets/games/tokens.js?v=" + ASSET_VERSION,
+    prompt: "assets/games/prompt.js?v=" + ASSET_VERSION,
+    radar: "assets/games/radar.js?v=" + ASSET_VERSION,
+    hunter: "assets/games/hunter.js?v=" + ASSET_VERSION,
+    puzzle: "assets/games/puzzle.js?v=" + ASSET_VERSION,
+    maze: "assets/games/maze.js?v=" + ASSET_VERSION
+  };
 
   /* ------------------------------------------------------------------
      Game catalogue
@@ -40,8 +47,6 @@
 
   var playIcon = '<svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-play"/></svg>';
   var whaleIcon = '<svg viewBox="0 0 128 80" aria-hidden="true"><use href="#icon-whale"/></svg>';
-  var bookmarkIcon = '<svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-bookmark"/></svg>';
-  var bookmarkFillIcon = '<svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-bookmark-fill"/></svg>';
 
   var GAMES = [
     {
@@ -241,13 +246,13 @@
 
   var HOT_ITEMS = [
     {
-      id: "v4-preview",
-      category: "模型",
-      catClass: "model",
-      title: "DeepSeek-V4 预览版：迈入百万上下文普惠时代",
-      short: "百万字超长上下文，Agent、世界知识与推理性能全面升级，并同步开源。",
-      date: "2026/04/24",
-      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260424/" }
+      id: "v4-1-flash-1017",
+      category: "产品",
+      catClass: "product",
+      title: "DeepSeek V4.1 Flash 新版本：许愿式编程一键成真",
+      short: "V4.1-Flash-1017 更新，面向真实编码与产品工作流的又一次能力升级。",
+      date: "2026/10/17",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news261017/" }
     },
     {
       id: "v4-1-flash",
@@ -259,13 +264,13 @@
       source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260910/" }
     },
     {
-      id: "v4-1-flash-1017",
-      category: "产品",
-      catClass: "product",
-      title: "DeepSeek V4.1 Flash 新版本：许愿式编程一键成真",
-      short: "V4.1-Flash-1017 更新，面向真实编码与产品工作流的又一次能力升级。",
-      date: "2026/10/17",
-      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news261017/" }
+      id: "v4-flash-vision",
+      category: "模型",
+      catClass: "model",
+      title: "DeepSeek-V4-Flash-Vision-Exp 上线",
+      short: "面向视觉理解场景的 Flash 实验版本，原生多模态能力继续扩展。",
+      date: "2026/08/21",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260821/" }
     },
     {
       id: "v4-pro",
@@ -277,13 +282,13 @@
       source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260813/" }
     },
     {
-      id: "v4-flash-vision",
+      id: "v4-preview",
       category: "模型",
       catClass: "model",
-      title: "DeepSeek-V4-Flash-Vision-Exp 上线",
-      short: "面向视觉理解场景的 Flash 实验版本，原生多模态能力继续扩展。",
-      date: "2026/08/21",
-      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260821/" }
+      title: "DeepSeek-V4 预览版：迈入百万上下文普惠时代",
+      short: "百万字超长上下文，Agent、世界知识与推理性能全面升级，并同步开源。",
+      date: "2026/04/24",
+      source: { label: "DeepSeek API Docs", url: "https://api-docs.deepseek.com/zh-cn/news/news260424/" }
     },
     {
       id: "v3-2",
@@ -314,8 +319,6 @@
     }
   ];
 
-  var KEYWORDS = ["推理模型", "Agent", "长上下文", "开源复现", "端侧", "Game Jam", "二创", "Prompt 工作流"];
-
   /* ------------------------------------------------------------------
      Utilities
      ------------------------------------------------------------------ */
@@ -324,21 +327,6 @@
     return String(value).replace(/[&<>"']/g, function (character) {
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[character];
     });
-  }
-
-  function loadSaved() {
-    try {
-      var raw = JSON.parse(window.localStorage.getItem(SAVED_KEY) || "[]");
-      return new Set(Array.isArray(raw) ? raw : []);
-    } catch (error) {
-      return new Set();
-    }
-  }
-
-  function persistSaved() {
-    try {
-      window.localStorage.setItem(SAVED_KEY, JSON.stringify(Array.from(savedSignals)));
-    } catch (error) {}
   }
 
   function getBest(id) {
@@ -360,10 +348,6 @@
     return String(score || 0).padStart(3, "0");
   }
 
-  function formatClock(date) {
-    return String(date.getHours()).padStart(2, "0") + ":" + String(date.getMinutes()).padStart(2, "0");
-  }
-
   function showToast(message) {
     var toast = document.getElementById("toast");
     if (!toast) return;
@@ -376,9 +360,41 @@
   }
 
   function syncBodyLock() {
-    var locked = !gameOverlay.hidden || !detailOverlay.hidden || !commandLayer.hidden ||
+    var locked = !gameOverlay.hidden || !commandLayer.hidden ||
       !mobileMenu.hidden || !noticeOverlay.hidden;
     body.classList.toggle("is-locked", locked);
+  }
+
+  function loadGameModule(id) {
+    if (window.DeepSeekGames && window.DeepSeekGames[id] &&
+      typeof window.DeepSeekGames[id].mount === "function") {
+      return Promise.resolve(window.DeepSeekGames[id]);
+    }
+    if (gameScriptPromises[id]) return gameScriptPromises[id];
+    var src = GAME_SCRIPTS[id];
+    if (!src) {
+      return Promise.reject(new Error("missing script"));
+    }
+    gameScriptPromises[id] = new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.onload = function () {
+        var gameModule = window.DeepSeekGames && window.DeepSeekGames[id];
+        if (gameModule && typeof gameModule.mount === "function") {
+          resolve(gameModule);
+        } else {
+          delete gameScriptPromises[id];
+          reject(new Error("invalid module"));
+        }
+      };
+      script.onerror = function () {
+        delete gameScriptPromises[id];
+        reject(new Error("load failed"));
+      };
+      document.head.appendChild(script);
+    });
+    return gameScriptPromises[id];
   }
 
   function trackEvent(name, data) {
@@ -457,41 +473,20 @@
     }
   }
 
-  function updateSavedCount() {
-    document.querySelectorAll("[data-saved-count]").forEach(function (element) {
-      element.textContent = String(savedSignals.size);
-    });
-  }
-
-  function bookmarkMarkup(saved, id, extraClass) {
-    return (
-      '<button type="button" class="' + extraClass + (saved ? " is-saved" : "") +
-      '" data-save-hot="' + escapeHtml(id) + '" aria-pressed="' + (saved ? "true" : "false") +
-      '" aria-label="' + (saved ? "取消关注这条信号" : "关注这条信号") + '" title="' +
-      (saved ? "取消关注" : "关注") + '">' +
-      (saved ? bookmarkFillIcon : bookmarkIcon) +
-      "</button>"
-    );
-  }
-
   /* ------------------------------------------------------------------
      Game cards
      ------------------------------------------------------------------ */
 
   function renderGames() {
+    if (!gamesGrid) return;
     gamesGrid.innerHTML =
       '<div class="live-grid">' +
       GAMES.map(function (game, index) {
-        var live = game.status === "live";
-        var best = live ? getBest(game.id) : 0;
-        var cta = live
-          ? '<span class="game-tile__cta">开始游戏 <i>' + playIcon + "</i></span>"
-          : '<span class="game-tile__cta game-tile__cta--soon">即将上线</span>';
-
+        var best = getBest(game.id);
         return (
           '<article class="game-tile" data-game="' + game.id + '" style="--i:' + index + '">' +
           '<a class="game-tile__button" href="#game-' + game.id + '" role="button" data-open-game="' + game.id +
-          '" aria-label="' + (live ? "开始游戏：" : "即将上线：") + escapeHtml(game.title) + '">' +
+          '" aria-label="开始游戏：' + escapeHtml(game.title) + '">' +
           '<div class="tile-art tile-art--' + game.artClass + '">' + gameArt(game.id) + "</div>" +
           '<div class="game-tile__body">' +
           '<h3>' + escapeHtml(game.title) + "</h3>" +
@@ -499,14 +494,27 @@
           '<div class="game-tile__meta">' +
           '<span class="game-tile__best" data-best="' + game.id + '"' + (best ? "" : " hidden") + ">" +
           (best ? "最高 " + padScore(best) : "") + "</span>" +
-          cta + "</div></div></a></article>"
+          '<span class="game-tile__cta">开始游戏 <i>' + playIcon + "</i></span>" +
+          "</div></div></a></article>"
         );
       }).join("") +
       "</div>";
 
     refreshBestDisplays();
-    updateGameCounts();
     setupCardTilt();
+  }
+
+  function renderMobileMenu() {
+    var box = document.querySelector(".drawer-games");
+    if (!box) return;
+    box.innerHTML =
+      '<span class="drawer-label">快速开始</span>' +
+      GAMES.map(function (game) {
+        return (
+          '<button type="button" data-open-game="' + game.id + '"><b>' +
+          escapeHtml(game.title) + "</b></button>"
+        );
+      }).join("");
   }
 
   function setupCardTilt() {
@@ -524,20 +532,6 @@
         card.style.removeProperty("--rx");
         card.style.removeProperty("--ry");
       });
-    });
-  }
-
-  function updateGameCounts() {
-    var live = GAMES.filter(function (game) { return game.status === "live"; }).length;
-    var soon = GAMES.length - live;
-    document.querySelectorAll("[data-total-count]").forEach(function (element) {
-      element.textContent = String(GAMES.length).padStart(2, "0");
-    });
-    document.querySelectorAll("[data-live-count]").forEach(function (element) {
-      element.textContent = String(live).padStart(2, "0");
-    });
-    document.querySelectorAll("[data-soon-count]").forEach(function (element) {
-      element.textContent = String(soon).padStart(2, "0");
     });
   }
 
@@ -560,36 +554,12 @@
   }
 
   /* ------------------------------------------------------------------
-     Ticker & signals
+     Signals
      ------------------------------------------------------------------ */
 
-  function renderWire() {
-    var track = document.getElementById("wireTrack");
-    if (!track) return;
-    var items = HOT_ITEMS.slice(0, 7).map(function (item) {
-      return '<span class="wire-item"><b>' + escapeHtml(item.title) + "</b><span>" +
-        escapeHtml(item.category) + " · " + escapeHtml(item.heat) + "</span></span>";
-    }).join("");
-    track.innerHTML = items + items;
-    track.setAttribute("aria-label", "深海快讯：" + HOT_ITEMS.slice(0, 7).map(function (item) {
-      return item.title;
-    }).join("；"));
-  }
-
-  function orderedHotItems() {
-    var items = HOT_ITEMS.slice();
-    if (!items.length) return items;
-    var offset = ((hotOffset % items.length) + items.length) % items.length;
-    return items.slice(offset).concat(items.slice(0, offset));
-  }
-
   function itemsForFilter() {
-    var items = orderedHotItems();
-    if (hotFilter === "saved") {
-      return items.filter(function (item) { return savedSignals.has(item.id); });
-    }
-    if (hotFilter === "all") return items;
-    return items.filter(function (item) { return item.category === hotFilter; });
+    if (hotFilter === "all") return HOT_ITEMS.slice();
+    return HOT_ITEMS.filter(function (item) { return item.category === hotFilter; });
   }
 
   function renderHot() {
@@ -646,139 +616,6 @@
     }
   }
 
-  function toggleSaved(id) {
-    if (!id || !HOT_ITEMS.some(function (item) { return item.id === id; })) return;
-    if (savedSignals.has(id)) {
-      savedSignals.delete(id);
-      showToast("已取消关注这条信号。");
-    } else {
-      savedSignals.add(id);
-      showToast("已关注。下次可以从「关注」分类里找到它。");
-    }
-    persistSaved();
-    updateSavedCount();
-    if (window.ArcadeAudio) window.ArcadeAudio.click();
-    if (hotFilter === "saved") {
-      renderHot();
-    } else {
-      syncSavedUi();
-    }
-  }
-
-  function syncSavedUi() {
-    document.querySelectorAll("[data-save-hot]").forEach(function (button) {
-      var id = button.getAttribute("data-save-hot");
-      var saved = savedSignals.has(id);
-      button.classList.toggle("is-saved", saved);
-      button.setAttribute("aria-pressed", saved ? "true" : "false");
-      var icon = saved ? bookmarkFillIcon : bookmarkIcon;
-      if (button.classList.contains("save-button") || button.classList.contains("trend-save") || button.classList.contains("detail-save")) {
-        button.innerHTML = icon;
-      }
-      var label = saved ? "取消关注这条信号" : "关注这条信号";
-      button.setAttribute("aria-label", label);
-      button.setAttribute("title", saved ? "取消关注" : "关注");
-    });
-  }
-
-  /* ------------------------------------------------------------------
-     Signal detail
-     ------------------------------------------------------------------ */
-
-  function openHotDetail(id) {
-    var item = HOT_ITEMS.find(function (candidate) {
-      return candidate.id === id;
-    });
-    if (!item) return;
-
-    closeMenu(true);
-    closeCommand(true);
-    lastFocused = getReturnFocus('[data-hot-detail="' + id + '"]');
-    currentSignalId = id;
-    var top = document.getElementById("detailTop");
-    var content = document.getElementById("detailContent");
-    var dialog = detailOverlay.querySelector(".detail-dialog");
-
-    top.className = "detail-top detail-top--" + item.catClass;
-    top.innerHTML =
-      '<span class="detail-category">' + escapeHtml(item.category) + " · " + escapeHtml(item.published) + "</span>" +
-      '<h2 id="detailTitle">' + escapeHtml(item.title) + "</h2>" +
-      '<div class="detail-save-wrap">' + bookmarkMarkup(savedSignals.has(item.id), item.id, "detail-save") + "</div>";
-
-    content.innerHTML =
-      item.body.split("\n\n").map(function (paragraph) {
-        return "<p>" + escapeHtml(paragraph) + "</p>";
-      }).join("") +
-      '<div class="detail-section"><h3>可以这样聊</h3><ul class="detail-prompts">' +
-      item.prompts.map(function (prompt, index) {
-        return "<li><span>0" + (index + 1) + "</span>" + escapeHtml(prompt) + "</li>";
-      }).join("") +
-      "</ul></div>" +
-      '<div class="detail-section"><h3>相关信号</h3><div class="detail-tags">' +
-      item.tags.map(function (tag) {
-        return "<span>#" + escapeHtml(tag) + "</span>";
-      }).join("") +
-      "</div></div>" +
-      '<div class="detail-source"><p>编辑精选内容，非实时新闻，也不代表 DeepSeek 官方观点。</p>' +
-      '<a href="' + item.source.url + '" target="_blank" rel="noopener noreferrer">' +
-      escapeHtml(item.source.label) +
-      ' <svg viewBox="0 0 20 20" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg></a></div>';
-
-    detailOverlay.hidden = false;
-    syncBodyLock();
-    requestAnimationFrame(function () {
-      detailOverlay.classList.add("is-open");
-      dialog.focus();
-      content.scrollTop = 0;
-      updateDetailProgress();
-    });
-
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState(null, "", "#signal-" + encodeURIComponent(id));
-    }
-  }
-
-  function closeHotDetail() {
-    if (detailOverlay.hidden) return;
-    detailOverlay.classList.remove("is-open");
-    var dialog = detailOverlay.querySelector(".detail-dialog");
-    var content = document.getElementById("detailContent");
-    if (window.history && window.history.replaceState && window.location.hash.indexOf("#signal-") === 0) {
-      window.history.replaceState(null, "", window.location.pathname + window.location.search);
-    }
-    currentSignalId = null;
-    window.setTimeout(function () {
-      detailOverlay.hidden = true;
-      syncBodyLock();
-      if (dialog) dialog.style.removeProperty("--detail-progress");
-      if (content) content.scrollTop = 0;
-      if (lastFocused && lastFocused.focus) lastFocused.focus();
-    }, 240);
-  }
-
-  function updateDetailProgress() {
-    var content = document.getElementById("detailContent");
-    var bar = document.querySelector("[data-detail-progress]");
-    if (!content || !bar) return;
-    var max = content.scrollHeight - content.clientHeight;
-    var ratio = max > 30 ? Math.min(1, Math.max(0, content.scrollTop / max)) : 0;
-    bar.style.width = (ratio * 100).toFixed(2) + "%";
-  }
-
-  function copySignalLink() {
-    var id = currentSignalId;
-    if (!id) return;
-    var url = window.location.origin + window.location.pathname + "#signal-" + encodeURIComponent(id);
-    copyText(url)
-      .then(function () {
-        showToast("信号链接已复制，可以分享给同好。");
-        if (window.ArcadeAudio) window.ArcadeAudio.land(true);
-      })
-      .catch(function () {
-        showToast("浏览器没有允许自动复制，可以直接复制地址栏链接。");
-      });
-  }
-
   /* ------------------------------------------------------------------
      Game overlay lifecycle
      ------------------------------------------------------------------ */
@@ -788,50 +625,10 @@
     document.getElementById("gameIndex").textContent = game.index;
     document.getElementById("gameControls").textContent = game.controls;
     document.getElementById("gameBest").textContent = padScore(getBest(game.id));
-    var trialLink = document.querySelector("[data-fish-trial]");
-    if (trialLink) trialLink.hidden = game.id !== "fish";
   }
 
-  function openGame(id) {
-    var game = GAMES.find(function (candidate) {
-      return candidate.id === id;
-    });
-    if (!game) return;
-
-    if (id === "jump") {
-      trackEvent("jump_full_open");
-      window.location.assign("jump-v2/");
-      return;
-    }
-
-    if (id === "fish") {
-      trackEvent("fish_full_open");
-      window.location.assign("fat-fish/");
-      return;
-    }
-
-    clearTimeout(menuTimer);
-    closeMenu(true);
-    closeCommand(true);
-    lastFocused = getReturnFocus('[data-open-game="' + id + '"]');
-
-    if (game.status !== "live") {
-      showToast("「" + game.title + "」还在深海里孵化，先玩点已经上岸的吧。");
-      if (window.ArcadeAudio) window.ArcadeAudio.click();
-      return;
-    }
-
-    var gameModule = window.DeepSeekGames && window.DeepSeekGames[id];
-    if (!gameModule || typeof gameModule.mount !== "function") {
-      showToast("「" + game.title + "」的游戏文件尚未接入，请检查 assets/games/" + id + ".js。");
-      return;
-    }
-
-    if (window.ArcadeAudio) {
-      window.ArcadeAudio.unlock();
-      window.ArcadeAudio.click();
-    }
-
+  function mountActiveGame(game, gameModule) {
+    var id = game.id;
     activeGameId = id;
     gameStartedAt = Date.now();
     updateGameChrome(game);
@@ -871,8 +668,49 @@
     });
   }
 
+  function openGame(id) {
+    var game = GAMES.find(function (candidate) {
+      return candidate.id === id;
+    });
+    if (!game) return;
+
+    if (id === "jump") {
+      trackEvent("jump_full_open");
+      trackEvent("game_open", { game: "jump" });
+      window.location.assign("jump/");
+      return;
+    }
+
+    if (id === "fish") {
+      trackEvent("fish_full_open");
+      trackEvent("game_open", { game: "fish" });
+      window.location.assign("fat-fish/");
+      return;
+    }
+
+    clearTimeout(menuTimer);
+    closeMenu(true);
+    closeCommand(true);
+    lastFocused = getReturnFocus('[data-open-game="' + id + '"]');
+
+    if (window.ArcadeAudio) {
+      window.ArcadeAudio.unlock();
+      window.ArcadeAudio.click();
+    }
+
+    var requestId = ++openRequestId;
+    loadGameModule(id).then(function (gameModule) {
+      if (requestId !== openRequestId) return;
+      mountActiveGame(game, gameModule);
+    }).catch(function () {
+      if (requestId !== openRequestId) return;
+      showToast("「" + game.title + "」暂时加载失败，请稍后重试。");
+    });
+  }
+
   function closeGame() {
     if (gameOverlay.hidden) return;
+    openRequestId += 1;
     gameOverlay.classList.remove("is-open");
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(function () {});
@@ -966,8 +804,8 @@
         id: "game-" + game.id + "-" + index,
         group: "游戏",
         title: game.title,
-        subtitle: game.status === "live" ? "可游玩 · " + game.tag : "建造中 · " + game.tag,
-        meta: game.status === "live" ? "PLAY" : "SOON",
+        subtitle: "可游玩 · " + game.tag,
+        meta: "PLAY",
         icon: game.index,
         search: game.title + " " + game.description + " " + game.tag + " 游戏",
         action: function () { openGame(game.id); }
@@ -1179,55 +1017,6 @@
     openGame(choice.id);
   }
 
-  function getBrief() {
-    return [
-      "DeepSeek 深海游乐场 · 游戏接入清单",
-      "",
-      "1. 游戏代码放进 assets/games/ 目录，建议命名 assets/games/<game-id>.js。",
-      "2. 注册 window.DeepSeekGames['<game-id>'] = { mount(root, options) }。",
-      "3. mount 返回 { destroy, restart }；destroy 时清理 RAF、定时器和事件监听。",
-      "4. 通过 options.onGameEnd(score) 上报分数；站点负责最高分与本地存储。",
-      "5. 游戏需同时支持鼠标、触屏和键盘，并适配窄屏。",
-      "6. 在 js/site.js 的 GAMES 中加入卡片信息，将 status 改为 live。",
-      "7. 保持轻量、免登录、即开即玩。",
-      "",
-      "详细说明见项目 README.md。"
-    ].join("\n");
-  }
-
-  function copyText(text) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text);
-    }
-    return new Promise(function (resolve, reject) {
-      var textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand("copy");
-        resolve();
-      } catch (error) {
-        reject(error);
-      } finally {
-        textarea.remove();
-      }
-    });
-  }
-
-  function copyBrief() {
-    copyText(getBrief())
-      .then(function () {
-        showToast("接入清单已复制，可以贴到团队协作工具里。");
-        if (window.ArcadeAudio) window.ArcadeAudio.land(true);
-      })
-      .catch(function () {
-        showToast("浏览器没有允许自动复制，请查看项目 README.md 中的接入说明。");
-      });
-  }
-
   function syncSoundButtons() {
     var enabled = window.ArcadeAudio ? window.ArcadeAudio.isEnabled() : true;
     document.querySelectorAll(".sound-toggle").forEach(function (button) {
@@ -1260,11 +1049,6 @@
       trackEvent("article_click", { article: articleLink.getAttribute("data-article") || "" });
     }
 
-    var trialLink = target.closest("[data-fish-trial]");
-    if (trialLink) {
-      trackEvent("fish_trial_open");
-    }
-
     if (target.closest("[data-notice-open]")) {
       event.preventDefault();
       openNotice();
@@ -1278,13 +1062,6 @@
 
     if (target.closest("[data-notice-close]")) {
       closeNotice();
-      return;
-    }
-
-    var saveButton = target.closest("[data-save-hot]");
-    if (saveButton) {
-      event.preventDefault();
-      toggleSaved(saveButton.getAttribute("data-save-hot"));
       return;
     }
 
@@ -1344,41 +1121,11 @@
       return;
     }
 
-    var keyword = target.closest("[data-keyword]");
-    if (keyword) {
-      openCommand(keyword.getAttribute("data-keyword"));
-      return;
-    }
-
     var hotFilterButton = target.closest("[data-hot-filter]");
     if (hotFilterButton) {
       hotFilter = hotFilterButton.getAttribute("data-hot-filter");
-      hotOffset = 0;
       renderHot();
       if (window.ArcadeAudio) window.ArcadeAudio.click();
-      return;
-    }
-
-    if (target.closest("[data-refresh-hot]")) {
-      hotOffset += 1;
-      renderHot();
-      showToast("声呐已重新扫描，换来一组社区信号。");
-      if (window.ArcadeAudio) window.ArcadeAudio.click();
-      return;
-    }
-
-    if (target.closest("[data-detail-close]")) {
-      closeHotDetail();
-      return;
-    }
-
-    if (target.closest("[data-copy-signal]")) {
-      copySignalLink();
-      return;
-    }
-
-    if (target.closest("[data-copy-brief]")) {
-      copyBrief();
       return;
     }
 
@@ -1417,10 +1164,6 @@
     if (event.target === noticeOverlay) closeNotice();
   });
 
-  detailOverlay.addEventListener("click", function (event) {
-    if (event.target === detailOverlay) closeHotDetail();
-  });
-
   commandLayer.addEventListener("click", function (event) {
     if (event.target === commandLayer) closeCommand();
   });
@@ -1431,8 +1174,6 @@
       renderCommandResults(commandInput.value);
     });
   }
-
-  document.querySelector("[data-detail-scroll]").addEventListener("scroll", updateDetailProgress, { passive: true });
 
   document.addEventListener("keydown", function (event) {
     if (!noticeOverlay.hidden) {
@@ -1467,16 +1208,6 @@
         return;
       }
       trapFocus(event, commandLayer.querySelector(".command-panel"));
-      return;
-    }
-
-    if (!detailOverlay.hidden) {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        closeHotDetail();
-      } else {
-        trapFocus(event, detailOverlay.querySelector(".detail-dialog"));
-      }
       return;
     }
 
@@ -1548,41 +1279,6 @@
     });
   }
 
-  function setClock() {
-    var value = formatClock(new Date());
-    document.querySelectorAll("[data-clock]").forEach(function (element) {
-      element.textContent = value;
-    });
-    document.querySelectorAll("[data-sonar-time]").forEach(function (element) {
-      element.textContent = value;
-    });
-  }
-
-  /* nav active state */
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll("[data-nav]"));
-  var sections = ["games", "sonar", "studio"].map(function (id) {
-    return document.getElementById(id);
-  }).filter(Boolean);
-
-  if ("IntersectionObserver" in window && navLinks.length && document.documentElement.scrollHeight > window.innerHeight + 4) {
-    var navObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        navLinks.forEach(function (link) {
-          link.classList.toggle("is-active", link.getAttribute("data-nav") === entry.target.id);
-        });
-      });
-    }, { rootMargin: "-32% 0px -55% 0px", threshold: 0 });
-    sections.forEach(function (section) { navObserver.observe(section); });
-  }
-
-  document.querySelectorAll(".main-nav a").forEach(function (link) {
-    link.addEventListener("click", function () {
-      navLinks.forEach(function (item) { item.classList.remove("is-active"); });
-      link.classList.add("is-active");
-    });
-  });
-
   /* ------------------------------------------------------------------
      Init
      ------------------------------------------------------------------ */
@@ -1594,11 +1290,17 @@
   } catch (error) {}
 
   renderGames();
-  renderWire();
+  renderMobileMenu();
   renderHot();
-  updateSavedCount();
   syncSoundButtons();
   syncShortcutLabels();
-  setClock();
-  window.setInterval(setClock, 15000);
+
+  window.setTimeout(function () {
+    ["jump/", "fat-fish/", "assets/games/tokens.js?v=" + ASSET_VERSION].forEach(function (href) {
+      var link = document.createElement("link");
+      link.rel = "prefetch";
+      link.href = href;
+      document.head.appendChild(link);
+    });
+  }, 1200);
 })();

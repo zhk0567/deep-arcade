@@ -1,101 +1,15 @@
-<!doctype html>
-<html lang="zh-CN" data-whale-shell="11">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-  <meta name="theme-color" content="#f7faf4">
-  <title>大肥鱼跳一跳 · 好友试玩版</title>
-  <style>
-    :root {
-      --bar-height: 38px;
-      --game-height: calc(100vh - var(--bar-height));
-    }
-    @supports (height: 100dvh) {
-      :root { --game-height: calc(100dvh - var(--bar-height)); }
-    }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; }
-    body {
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(135deg, #d2e4ef, #eff4f6 55%, #d9e6f1);
-      color: #1f3d34;
-      font-family: system-ui, "Microsoft YaHei", sans-serif;
-    }
-    .arcade-bar {
-      flex: 0 0 var(--bar-height);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 0 18px;
-      background: linear-gradient(90deg, rgba(216,244,95,.55), rgba(100,215,247,.3) 52%, rgba(255,123,99,.2));
-      border-bottom: 1px solid rgba(31,61,52,.12);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
-      position: relative;
-      z-index: 2;
-    }
-    .arcade-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #3f55f5;
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: .2px;
-      white-space: nowrap;
-    }
-    .arcade-back svg { width: 16px; height: 16px; flex: 0 0 auto; }
-    .arcade-back:hover { color: #2f43d8; }
-    .arcade-note {
-      color: #536b5c;
-      font-size: 10.5px;
-      letter-spacing: .4px;
-      white-space: nowrap;
-    }
-    .game-shell {
-      flex: 1 1 auto;
-      min-height: 0;
-      display: grid;
-      place-items: center;
-    }
-    iframe {
-      display: block;
-      border: 0;
-      width: min(100vw, calc(var(--game-height) * .5625));
-      height: var(--game-height);
-      background: #e1eff9;
-      box-shadow: 0 0 60px #35527525;
-    }
-    @media (min-aspect-ratio: 1/1) {
-      iframe { border-radius: 18px; }
-      .game-shell { padding: 10px 0; }
-      iframe { height: calc(var(--game-height) - 20px); width: min(100vw, calc((var(--game-height) - 20px) * .5625)); }
-    }
-    @media (max-width: 600px) {
-      :root { --bar-height: 36px; }
-      .arcade-bar { padding: 0 15px; }
-      .arcade-back { font-size: 12px; }
-      .arcade-note { display: none; }
-    }
-    @media (hover: hover) and (pointer: fine) {
-      html, body, .arcade-bar, .arcade-back { cursor: url("../assets/cursors/whale-girl-64.png") 3 5, auto; }
-      iframe { cursor: pointer; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url=../jump/">
+  <link rel="canonical" href="https://xn--pssy23g5qs.fun/jump/">
+  <title>跳转到跳一跳</title>
+  <script>location.replace("../jump/");</script>
 </head>
 <body>
-  <header class="arcade-bar">
-    <a class="arcade-back" href="../" aria-label="返回 DeepSeek 深海游乐场首页">
-      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M11.5 5 6.5 10l5 5M6.8 10h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <span>返回游乐场</span>
-    </a>
-    <span class="arcade-note">非官方社区企划 · 大肥鱼跳一跳 v11</span>
-  </header>
-  <div class="game-shell">
-    <iframe src="./play.html" title="大肥鱼跳一跳游戏画面" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
-  </div>
+  <p><a href="../jump/">前往跳一跳</a></p>
 </body>
 </html>

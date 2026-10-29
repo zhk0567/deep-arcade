@@ -4,3 +4,10 @@ Thumbs.db
 .vscode/
 .idea/
 node_modules/
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+deep-arcade-deploy.pem

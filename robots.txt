@@ -1,4 +1,9 @@
 ﻿User-agent: *
 Allow: /
+Disallow: /source/
+Disallow: /jump-v2/
+Disallow: /fish-v068.html
+Disallow: /fish-v068-v5.html
+Disallow: /fish-v068-v6.html
 
 Sitemap: https://xn--pssy23g5qs.fun/sitemap.xml

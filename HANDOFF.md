@@ -1,6 +1,6 @@
 # DeepSeek 深海游乐场 — 交接文档
 
-> 最后更新：2026-10-28 14:00（Asia/Shanghai）
+> 最后更新：2026-10-29（Asia/Shanghai）
 > 用途：给后续接手的 agent / 开发者快速恢复上下文。
 > 本文不包含密码、私钥、GitHub Token 等敏感凭证。
 
@@ -63,7 +63,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 - 本地 HEAD：`49d5067`（目录整理 + 源码同步）
 - 远程 HEAD：`a079795`（目录整理后的文档提交；以最新 git log 为准）
 - 本地与远程不是同一条提交链，直接 `git push` 可能 non-fast-forward
-- 本地与远程现在都包含完整源码 `source/merge-fat-fish/`（147 个文件，约 56.6 MB）
+- `source/merge-fat-fish/` 已于 2026-10-29 从工作树移除（历史仍可恢复）
 - 下一个 agent 如果继续用 Git，**先 `git fetch` / 重新 clone**，不要直接强推
 
 ### 2.3.1 其他贡献者 / 权限（已确认）
@@ -130,12 +130,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 
 ### 2.5 合并结果 / 目录说明
 
-合作者的完整工程已经归档到 `source/merge-fat-fish/`：
-
-- 147 个文件，约 56.63 MB
-- `web/`：模块化浏览器版、Node 排行榜后台、61 项测试
-- `wechat-minigame/`：微信小游戏移植骨架
-- 原始高分辨率 PNG 和原始 WebP/MP3 均保留
+合作者完整工程曾归档在 `source/merge-fat-fish/`（约 56.6 MB，含 web 后台与微信骨架）。**2026-10-29 已从发布树移除**，避免 GitHub Pages 公开托管；需要时可从 git 历史恢复。
 
 线上实际运行的是 `fat-fish/` 优化生产版：
 
@@ -156,8 +151,9 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 
 - `F:\commercial\deep-arcade-static.zip`（约 1.7 MB）
 - 包含：主站、8 款游戏、`fat-fish/` 完整版、44 个素材、Nginx 示例、部署说明
-- 不包含：`.git`、`source/merge-fat-fish/`
+- 不包含：`.git`、`source/`、重复的 `jump/`
 - 可直接上传到 ECS / 阿里云 OSS / 腾讯云 COS
+- 下次重打包时继续排除上述目录
 
 服务器推荐路径：`/var/www/deep-arcade`。
 
@@ -168,7 +164,7 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 | 页面 | URL |
 |---|---|
 | 主站 | <https://大肥鱼.fun> |
-| 跳一跳完整版 | <https://大肥鱼.fun/jump-v2/> |
+| 跳一跳完整版 | <https://大肥鱼.fun/jump/> |
 | 合成大肥鱼完整版 | <https://大肥鱼.fun/fat-fish/> |
 | 旧入口（兼容跳转） | `/fish-v068.html`、`/fish-v068-v5.html`、`/fish-v068-v6.html` |
 | 鱼素材 | `/fat-fish/assets/` |
@@ -183,35 +179,24 @@ DNS 服务商：阿里云（`dns7.hichina.com` / `dns8.hichina.com`）。
 ```text
 F:\commercial\deep-arcade\
 ├─ index.html                  # 主站入口
-├─ jump-v2/                       # 大肥鱼跳一跳 v11 完整试玩版（Cocos 静态构建）
+├─ jump/                    # 大肥鱼跳一跳 v11 完整试玩版（Cocos 静态构建）
 ├─ fat-fish/                   # 合成大肥鱼 v0.6.8 生产版
 │  ├─ index.html               # 219 KB 首屏
 │  ├─ README.md                # 生产版说明
 │  └─ assets/                  # 44 个外部素材：23 WebP + 21 MP3
-├─ source/
-│  └─ merge-fat-fish/          # 合作者完整源码、Node 后台、测试、微信小游戏骨架
 ├─ fish-v068.html              # 旧入口 → fat-fish/ 的跳转页
 ├─ fish-v068-v5.html           # 旧入口 → fat-fish/ 的跳转页
 ├─ fish-v068-v6.html           # 旧入口 → fat-fish/ 的跳转页
 ├─ assets/
 │  ├─ css/
 │  │  ├─ arcade.css            # 基础样式
-│  │  ├─ theme.css             # 旧主题路径（保留兼容）
 │  │  ├─ theme-whale.css       # 当前主站主题（含鲸鱼娘光标）
 │  │  ├─ notice.css            # 公告栏、免责声明
 │  │  └─ games-extra.css       # 后五款游戏 UI
 │  ├─ cursors/
 │  │  ├─ whale-girl-64.png     # DeepSeek-鲸鱼娘 64px 光标（用户提供）
 │  │  └─ deepseek-whale.svg    # 旧自绘鲸鱼光标（保留备用）
-│  ├─ games/
-│  │  ├─ jump.js
-│  │  ├─ fish.js               # 旧轻量鱼（主站卡片已不再打开它）
-│  │  ├─ tokens.js
-│  │  ├─ prompt.js
-│  │  ├─ radar.js
-│  │  ├─ hunter.js
-│  │  ├─ puzzle.js
-│  │  └─ maze.js
+│  ├─ games/                   # 弹层六款，按需加载（tokens/prompt/radar/hunter/puzzle/maze）
 │  └─ js/
 │     ├─ audio.js
 │     ├─ analytics-config.js   # Umami Website ID / 域名白名单
@@ -226,6 +211,12 @@ F:\commercial\deep-arcade\
 ├─ sitemap.xml
 └─ .gitattributes
 ```
+
+已移除（可从 git 历史恢复）：
+
+- `source/merge-fat-fish/`：合作者完整源码归档，不再随 Pages 公开托管
+- `jump/`：与 `jump/` 重复的旧入口
+- `assets/games/jump.js`、`assets/games/fish.js`、`assets/css/theme.css`
 
 ---
 
@@ -268,7 +259,7 @@ localStorage["ds-arcade-best-<game-id>"]
 - 原指针包未附公开开源许可证；详见 `CREDITS.md`
 - `user-select: none`；输入框保留文字选择
 - 快速点击不误选文字
-- 主站资产业已加 `?v=20261028d`
+- 主站资产业已加 `?v=20261029a`；弹层六款游戏脚本改为打开时按需加载
 
 ### 5.4 鱼完整版 v0.6.8（fat-fish/）
 
@@ -294,19 +285,19 @@ localStorage["ds-arcade-best-<game-id>"]
 
 ---
 
-### 5.5 跳一跳完整版（jump-v2/）
+### 5.5 跳一跳完整版（jump/）
 
 - 版本：好友试玩版 v11（`whale-hop-v11-friends-999-20261028`）
 - 技术：Cocos Creator Web 构建，纯静态
 - 文件：251 个，约 13.3 MB（原 40.9 MB）
-- 入口：`jump-v2/index.html`（顶部返回栏）
-- 游戏画面：`jump-v2/play.html`
-- 资源：`jump-v2/assets/`、`jump-v2/cocos-js/`、`jump-v2/src/`
-- 主站「跳一跳」卡片当前页跳转到 `jump-v2/`
+- 入口：`jump/index.html`（顶部返回栏）
+- 游戏画面：`jump/play.html`
+- 资源：`jump/assets/`、`jump/cocos-js/`、`jump/src/`
+- 主站「跳一跳」卡片当前页跳转到 `jump/`
 - 不包含 Windows 启动器、`runtime/node.exe`、`server.mjs`
 - 素材已压缩：PNG 26.2 MB → 3.4 MB（WebP 内容，保留 .png 文件名）；WAV 5.5 MB → 0.7 MB（MP3 内容，保留 .wav 文件名）；首屏约 13.3 MB
-- 旧 `jump/` 仍保留在远程仓库作为回退入口，但主站不再使用
-- 引擎许可：`jump-v2/licenses/COCOS-ENGINE-LICENSE.md`
+- 旧 `jump/` 已从工作树删除（与 `jump/` 重复）；需要时可从 git 历史恢复
+- 引擎许可：`jump/licenses/COCOS-ENGINE-LICENSE.md`
 
 ## 6. Umami 统计
 
@@ -325,14 +316,14 @@ localStorage["ds-arcade-best-<game-id>"]
 已埋点事件：
 
 ```text
-game_open      { game }
+game_open      { game }          # 主站弹层 + jump/ + fat-fish/ 进页
 game_end       { game, score, duration }
 article_click  { article }
 search_open
 notice_open
 notice_dismiss
+jump_full_open
 fish_full_open
-fish_trial_open
 ```
 
 说明：
@@ -363,7 +354,7 @@ python -m http.server 4173 --bind 127.0.0.1
 打开：
 
 - 主站：<http://127.0.0.1:4173/>
-- 跳一跳完整版：<http://127.0.0.1:4173/jump-v2/>
+- 跳一跳完整版：<http://127.0.0.1:4173/jump/>
 - 鱼完整版：<http://127.0.0.1:4173/fat-fish/>
 
 项目没有 build 命令、没有依赖安装步骤。
@@ -431,9 +422,8 @@ python -m http.server 4173 --bind 127.0.0.1
 |---|---|
 | P0 | 服务器迁移：等待 ICP / SSH 公钥 / 安全组确认 |
 | P1 | 实际触发一次鱼「解锁新角色」验证 3 秒自动淡出（代码已加，但未通过真实解锁流程截图验证） |
-| P1 | 确认 Umami 后台已收到正式域名数据 |
-| P2 | 已把合作者项目归档到 `source/merge-fat-fish/`；是否进一步拆分到独立仓库待决定 |
-| P2 | 旧页面已改为跳转；可择机删除未使用的 `assets/games/fish.js` |
+| P1 | 确认 Umami 后台已收到正式域名数据（含 jump / fat-fish 的 `game_open`） |
+| P2 | 若需合作者完整工程：从 git 历史恢复 `source/merge-fat-fish/`，或拆到独立仓库 |
 | P2 | 若继续使用 GitHub Pages，考虑 Service Worker 做二次访问离线缓存 |
 | P3 | 为服务器部署配置自动 HTTPS 续期、日志轮转、备份 |
 | P3 | 检查 ICP 备案与商标/版权声明是否随部署更新 |
@@ -443,15 +433,22 @@ python -m http.server 4173 --bind 127.0.0.1
 - GitHub Pages 的 HTML 缓存约 10 分钟
 - 同名鱼页面更新后可能仍显示旧版
 - 旧链接统一跳转到 `fat-fish/`
-- 主站资源通过 `?v=20261028d` 破缓存
+- 主站资源通过 `?v=20261029a` 破缓存
 - 更新后如果用户看到旧页面，先 `Ctrl + F5`
 
 ### 9.2 已知代码问题
 
-- `assets/games/fish.js` 仍被 `index.html` 加载，但主站 `openGame("fish")` 已拦截并打开完整版，旧模块实际未使用
-- `fish-v068.html` / `v5` / `v6` 均保留为跳转页
+- `fish-v068.html` / `v5` / `v6` 均保留为跳转页；`robots.txt` 已 Disallow
 - 鱼页面的解锁自动淡出计时从「翻牌完成」开始，不是从「开始翻牌」开始；当前约为 2.5 秒翻牌 + 3 秒展示 + 0.26 秒淡出
 - 48px PNG 光标在 Chrome/Edge/Firefox 正常；极旧浏览器会回退到系统光标
+
+### 9.3 2026-10-29 优化摘要
+
+- 最新动态按日期降序
+- 删除死脚本 / 重复主题 / 详情弹层遗留逻辑
+- 弹层六款游戏按需加载；移动菜单列出全部 8 款
+- jump / fat-fish 接入 Umami
+- 移除公开托管的 `source/` 与重复 `jump/`（约 70MB）
 
 ---
 
@@ -473,10 +470,10 @@ python -m http.server 4173 --bind 127.0.0.1
 | 想改什么 | 文件 |
 |---|---|
 | 主站布局 / 文案 | `index.html` |
-| 主站主题 / 光标 / 防选中 | `assets/css/theme-whale.css`（当前）/ `theme.css`（旧路径） |
+| 主站主题 / 光标 / 防选中 | `assets/css/theme-whale.css` |
 | 主站逻辑 / 游戏目录 / 文章 | `assets/js/site.js` |
 | Umami | `assets/js/analytics-config.js`、`assets/js/analytics.js` |
-| 8 款游戏 | `assets/games/*.js` |
+| 弹层六款游戏 | `assets/games/*.js`（按需加载） |
 | 后五款游戏 UI | `assets/css/games-extra.css` |
 | 鱼完整版 | `fat-fish/index.html` + `fat-fish/assets/` |
 | 公告 / 免责声明 | `index.html` + `assets/css/notice.css` |

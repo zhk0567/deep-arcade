@@ -42,11 +42,11 @@ System.register([], function (_export, _context) {
               debugMode: false ? cc.DebugMode.INFO : cc.DebugMode.ERROR,
               settingsPath: this.settingsPath,
               overrideSettings: {
-                // assets: {
-                //      preloadBundles: [{ bundle: 'main', version: 'xxx' }],
-                // }
                 profiling: {
                   showFPS: this.showFPS
+                },
+                splashScreen: {
+                  totalTime: 0
                 }
               }
             }).then(function () {

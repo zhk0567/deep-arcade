@@ -27,7 +27,7 @@
 
 ### 游戏
 
-- **跳一跳**：完整 Cocos 试玩版，四角色、四地图、三道具，当前页跳转 `jump-v2/`。
+- **跳一跳**：完整 Cocos 试玩版，四角色、四地图、三道具，当前页跳转 `jump/`。
 - **合成大肥鱼**：点击卡片直接打开作者提供的「好友试玩完整版 v0.6.8」（当前页跳转），包含 10 级形态、图鉴、语音与独立本地存档。
 - **Token 消消乐**：8×8 棋盘、六种 Token、24 步、相邻交换、三连消除、连锁倍率、深渊补给、无解重排、提示一步、键盘操作与结束结算。
 - **提示词接龙**：10 轮语境选择、每轮 15 秒、3 条命、连续答对加成与接龙链展示。
@@ -61,14 +61,14 @@
 已埋点事件：
 
 ```text
-game_open     { game }
-game_end      { game, score, duration }
-article_click { article }
+game_open      { game }          # 含主站弹层与 jump / fat-fish 完整版进页
+game_end       { game, score, duration }
+article_click  { article }
 search_open
 notice_open
 notice_dismiss
-fish_full_open
-fish_trial_open
+jump_full_open                   # 主站跳转到 jump/
+fish_full_open                   # 主站跳转到 fat-fish/
 ```
 
 页面浏览量由 Umami 脚本自动记录。统计不写 Cookie，不记录搜索原文，不建立用户画像；脚本带 `data-do-not-track`，会尊重浏览器的 Do Not Track 设置。
@@ -104,13 +104,11 @@ fish_trial_open
 ```text
 deep-arcade/
 ├─ index.html              # 主站单页入口
-├─ jump-v2/                   # 大肥鱼跳一跳 v11 完整试玩版（Cocos 静态构建）
+├─ jump/                # 大肥鱼跳一跳 v11 完整试玩版（Cocos 静态构建）
 ├─ fat-fish/               # 合成大肥鱼 v0.6.8 生产版
 │  ├─ index.html           # 首屏约 219 KB
 │  ├─ README.md            # 生产版说明
 │  └─ assets/              # 23 张 WebP + 21 条 MP3（相对加载）
-├─ source/
-│  └─ merge-fat-fish/      # 合作者完整源码、Node 后台、测试、微信小游戏骨架
 ├─ fish-v068.html          # 旧入口 → fat-fish/ 的跳转页
 ├─ fish-v068-v5.html       # 旧入口 → fat-fish/ 的跳转页
 ├─ fish-v068-v6.html       # 旧入口 → fat-fish/ 的跳转页
@@ -122,7 +120,6 @@ deep-arcade/
 ├─ assets/
 │  ├─ css/
 │  │  ├─ arcade.css
-│  │  ├─ theme.css
 │  │  ├─ theme-whale.css     # 当前主站主题（含鲸鱼娘光标）
 │  │  ├─ notice.css
 │  │  └─ games-extra.css
@@ -130,10 +127,8 @@ deep-arcade/
 │  │  ├─ audio.js
 │  │  ├─ analytics-config.js
 │  │  ├─ analytics.js
-│  │  └─ site.js
+│  │  └─ site.js             # 主控制器；弹层游戏按需加载
 │  └─ games/
-│     ├─ jump.js
-│     ├─ fish.js           # 旧轻量版，主站卡片已不再挂载
 │     ├─ tokens.js
 │     ├─ prompt.js
 │     ├─ radar.js
@@ -143,6 +138,8 @@ deep-arcade/
 ├─ HANDOFF.md
 └─ README.md
 ```
+
+> 合作者完整源码曾归档在 `source/merge-fat-fish/`，已从发布树移除。跳一跳正式入口为 `jump/`（旧 `jump-v2/` 仅保留兼容跳转页）。打静态部署包时排除 `source/`。
 
 ## 光标素材
 
