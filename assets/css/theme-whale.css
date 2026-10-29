@@ -1181,3 +1181,99 @@ img {
     cursor: url("../cursors/whale-girl-64.png") 3 5, pointer;
   }
 }
+
+/* ---------- perceived zero-latency ---------- */
+
+.game-overlay {
+  transition: opacity 0.12s ease;
+}
+
+.game-dialog {
+  transition: transform 0.16s var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.game-overlay.is-open .game-dialog {
+  transform: translateY(0) scale(1);
+}
+
+.game-tile__button,
+.drawer-games button,
+.button--hero,
+.command-trigger,
+.round-button {
+  transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.game-tile__button:active,
+.drawer-games button:active,
+.button--hero:active {
+  transform: scale(0.97);
+}
+
+.game-body.is-loading,
+.game-dialog.is-loading .game-body {
+  display: grid;
+  place-items: center;
+  min-height: min(58vh, 520px);
+}
+
+.game-loading {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  padding: 24px;
+  color: rgba(242, 246, 255, 0.86);
+  text-align: center;
+}
+
+.game-loading p {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.game-loading__pulse {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 3px solid rgba(100, 215, 247, 0.22);
+  border-top-color: #64d7f7;
+  animation: game-spin 0.7s linear infinite;
+}
+
+@keyframes game-spin {
+  to { transform: rotate(360deg); }
+}
+
+body.is-navigating {
+  cursor: progress;
+}
+
+body.is-navigating::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.55), transparent 42%),
+    linear-gradient(160deg, rgba(247, 248, 255, 0.72), rgba(232, 244, 247, 0.78));
+  animation: nav-veil 0.18s ease forwards;
+}
+
+@keyframes nav-veil {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-overlay,
+  .game-dialog,
+  .game-tile__button,
+  .drawer-games button,
+  .button--hero,
+  body.is-navigating::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

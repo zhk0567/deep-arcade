@@ -5,7 +5,7 @@
   "use strict";
 
   var BEST_PREFIX = "ds-arcade-best-";
-  var ASSET_VERSION = "20261029b";
+  var ASSET_VERSION = "20261029c";
   var gameOverlay = document.getElementById("gameOverlay");
   var commandLayer = document.getElementById("commandPalette");
   var mobileMenu = document.getElementById("mobileMenu");
@@ -31,6 +31,7 @@
   var commandIndex = 0;
   var commandQuery = "";
   var gameScriptPromises = {};
+  var prefetchedHrefs = {};
 
   var GAME_SCRIPTS = {
     tokens: "assets/games/tokens.js?v=" + ASSET_VERSION,
@@ -39,6 +40,11 @@
     hunter: "assets/games/hunter.js?v=" + ASSET_VERSION,
     puzzle: "assets/games/puzzle.js?v=" + ASSET_VERSION,
     maze: "assets/games/maze.js?v=" + ASSET_VERSION
+  };
+
+  var FULL_GAME_HREF = {
+    jump: "jump/",
+    fish: "fat-fish/"
   };
 
   /* ------------------------------------------------------------------
@@ -365,6 +371,16 @@
     body.classList.toggle("is-locked", locked);
   }
 
+  function prefetchHref(href, asValue) {
+    if (!href || prefetchedHrefs[href]) return;
+    prefetchedHrefs[href] = true;
+    var link = document.createElement("link");
+    link.rel = "prefetch";
+    if (asValue) link.as = asValue;
+    link.href = href;
+    document.head.appendChild(link);
+  }
+
   function loadGameModule(id) {
     if (window.DeepSeekGames && window.DeepSeekGames[id] &&
       typeof window.DeepSeekGames[id].mount === "function") {
@@ -395,6 +411,59 @@
       document.head.appendChild(script);
     });
     return gameScriptPromises[id];
+  }
+
+  function warmGameIntent(id) {
+    if (!id) return;
+    if (FULL_GAME_HREF[id]) {
+      prefetchHref(FULL_GAME_HREF[id]);
+      if (id === "jump") {
+        prefetchHref("jump/play.html");
+        prefetchHref("jump/index.js");
+        prefetchHref("jump/src/settings.json");
+      }
+      return;
+    }
+    if (GAME_SCRIPTS[id]) {
+      prefetchHref(GAME_SCRIPTS[id], "script");
+      loadGameModule(id).catch(function () {});
+    }
+  }
+
+  function warmAllOverlayGames() {
+    Object.keys(GAME_SCRIPTS).forEach(function (id, index) {
+      window.setTimeout(function () {
+        loadGameModule(id).catch(function () {});
+      }, index * 40);
+    });
+    prefetchHref("jump/");
+    prefetchHref("fat-fish/");
+    prefetchHref("jump/play.html");
+  }
+
+  function scheduleWarmup() {
+    var start = function () {
+      warmAllOverlayGames();
+    };
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(start, { timeout: 900 });
+    } else {
+      window.setTimeout(start, 280);
+    }
+  }
+
+  function loadingMarkup(title) {
+    return (
+      '<div class="game-loading" role="status" aria-live="polite">' +
+      '<span class="game-loading__pulse" aria-hidden="true"></span>' +
+      "<p>正在进入「" + escapeHtml(title) + "」</p>" +
+      "</div>"
+    );
+  }
+
+  function beginExternalNav(href) {
+    body.classList.add("is-navigating");
+    window.location.assign(href);
   }
 
   function trackEvent(name, data) {
@@ -627,24 +696,40 @@
     document.getElementById("gameBest").textContent = padScore(getBest(game.id));
   }
 
+  function openGameShell(game, loading) {
+    activeGameId = game.id;
+    updateGameChrome(game);
+    gameDialog.className = "game-dialog game-dialog--" + game.id + (loading ? " is-loading" : "");
+    var gameBody = document.getElementById("gameBody");
+    gameBody.innerHTML = loading ? loadingMarkup(game.title) : "";
+    gameBody.classList.toggle("is-loading", !!loading);
+    gameOverlay.hidden = false;
+    syncBodyLock();
+    window.clearTimeout(closeTimer);
+    gameOverlay.classList.add("is-open");
+    gameDialog.focus();
+  }
+
   function mountActiveGame(game, gameModule) {
     var id = game.id;
     activeGameId = id;
     gameStartedAt = Date.now();
     updateGameChrome(game);
     trackEvent("game_open", { game: id });
-    document.getElementById("gameBody").innerHTML = "";
+    gameDialog.classList.remove("is-loading");
+    var gameBody = document.getElementById("gameBody");
+    gameBody.classList.remove("is-loading");
+    gameBody.innerHTML = "";
     gameDialog.className = "game-dialog game-dialog--" + id;
-    gameOverlay.hidden = false;
-    syncBodyLock();
+
+    if (gameOverlay.hidden) {
+      gameOverlay.hidden = false;
+      syncBodyLock();
+    }
     window.clearTimeout(closeTimer);
+    gameOverlay.classList.add("is-open");
 
-    requestAnimationFrame(function () {
-      gameOverlay.classList.add("is-open");
-      gameDialog.focus();
-    });
-
-    activeGame = gameModule.mount(document.getElementById("gameBody"), {
+    activeGame = gameModule.mount(gameBody, {
       best: getBest(id),
       audio: window.ArcadeAudio,
       onExit: closeGame,
@@ -674,17 +759,19 @@
     });
     if (!game) return;
 
+    warmGameIntent(id);
+
     if (id === "jump") {
       trackEvent("jump_full_open");
       trackEvent("game_open", { game: "jump" });
-      window.location.assign("jump/");
+      beginExternalNav("jump/");
       return;
     }
 
     if (id === "fish") {
       trackEvent("fish_full_open");
       trackEvent("game_open", { game: "fish" });
-      window.location.assign("fat-fish/");
+      beginExternalNav("fat-fish/");
       return;
     }
 
@@ -699,11 +786,26 @@
     }
 
     var requestId = ++openRequestId;
+    if (activeGame && typeof activeGame.destroy === "function") {
+      activeGame.destroy();
+      activeGame = null;
+    }
+
+    var alreadyReady = window.DeepSeekGames && window.DeepSeekGames[id] &&
+      typeof window.DeepSeekGames[id].mount === "function";
+
+    if (alreadyReady) {
+      mountActiveGame(game, window.DeepSeekGames[id]);
+      return;
+    }
+
+    openGameShell(game, true);
     loadGameModule(id).then(function (gameModule) {
       if (requestId !== openRequestId) return;
       mountActiveGame(game, gameModule);
     }).catch(function () {
       if (requestId !== openRequestId) return;
+      closeGame();
       showToast("「" + game.title + "」暂时加载失败，请稍后重试。");
     });
   }
@@ -712,6 +814,7 @@
     if (gameOverlay.hidden) return;
     openRequestId += 1;
     gameOverlay.classList.remove("is-open");
+    gameDialog.classList.remove("is-loading");
     if (document.fullscreenElement) {
       document.exitFullscreen().catch(function () {});
     }
@@ -724,10 +827,14 @@
       }
       activeGame = null;
       activeGameId = null;
-      document.getElementById("gameBody").innerHTML = "";
+      var gameBody = document.getElementById("gameBody");
+      if (gameBody) {
+        gameBody.classList.remove("is-loading");
+        gameBody.innerHTML = "";
+      }
       syncBodyLock();
       if (lastFocused && lastFocused.focus) lastFocused.focus();
-    }, 260);
+    }, 150);
   }
 
   function syncGameFullscreen(active) {
@@ -788,7 +895,7 @@
         mobileMenu.hidden = true;
         syncBodyLock();
         if (lastFocused && lastFocused.focus) lastFocused.focus();
-      }, 300);
+      }, 160);
     }
   }
 
@@ -990,7 +1097,7 @@
     if (immediate) {
       finish();
     } else {
-      commandTimer = window.setTimeout(finish, 200);
+      commandTimer = window.setTimeout(finish, 140);
     }
   }
 
@@ -1289,18 +1396,25 @@
     }
   } catch (error) {}
 
+  function bindGameIntentWarmup(root) {
+    if (!root) return;
+    root.addEventListener("pointerenter", function (event) {
+      var trigger = event.target.closest("[data-open-game]");
+      if (!trigger) return;
+      warmGameIntent(trigger.getAttribute("data-open-game"));
+    }, true);
+    root.addEventListener("pointerdown", function (event) {
+      var trigger = event.target.closest("[data-open-game]");
+      if (!trigger) return;
+      warmGameIntent(trigger.getAttribute("data-open-game"));
+    }, true);
+  }
+
   renderGames();
   renderMobileMenu();
   renderHot();
   syncSoundButtons();
   syncShortcutLabels();
-
-  window.setTimeout(function () {
-    ["jump/", "fat-fish/", "assets/games/tokens.js?v=" + ASSET_VERSION].forEach(function (href) {
-      var link = document.createElement("link");
-      link.rel = "prefetch";
-      link.href = href;
-      document.head.appendChild(link);
-    });
-  }, 1200);
+  bindGameIntentWarmup(document);
+  scheduleWarmup();
 })();
